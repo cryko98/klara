@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klara - AI Assistant</title>
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base font */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent background scroll when chat is open */
+            background-image: url('https://img.freepik.com/free-photo/anime-moon-landscape_23-2151645887.jpg?w=360');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        /* Custom scrollbar */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #4f46e5; /* indigo-600 */
+            border-radius: 3px;
+        }
+        /* Glow animation */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5; }
+            50% { box-shadow: 0 0 20px #6366f1, 0 0 30px #6366f1; }
+        }
+        .glow-effect {
+            animation: glow 3s infinite ease-in-out;
+        }
+        /* Fade-in animation for modal */
+        #chat-view.fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        #chat-view.fade-out {
+            animation: fadeOut 0.3s ease-in forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.95); }
+        }
+        /* Klara's avatar in chat */
+        .klara-avatar {
+            width: 32px; /* Small size for chat */
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 8px;
+            border: 1px solid #6366f1; /* Indigo border */
+            box-shadow: 0 0 5px rgba(99, 102, 241, 0.5); /* Subtle glow */
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen">
+
+    <!-- Landing View --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500">
+        <div class="max-w-md mx-auto bg-gray-900/70 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/30 ring-1 ring-white/10 shadow-2xl shadow-indigo-500/20">
+            <!-- Klara's Avatar for Landing --><img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="w-32 h-32 mx-auto rounded-full object-cover border-4 border-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">
+            <h1 class="text-4xl font-bold mt-6 mb-3">Hello, I'm Klara</h1>
+            <p class="text-lg text-gray-300 mb-8">
+                Your AI assistant who remembers our conversations. Ready to help!
+            </p>
+            <button id="start-chat-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg glow-effect disabled:opacity-50 disabled:cursor-not-allowed">
+                Start Conversation
+            </button>
+            <p id="auth-status" class="text-sm text-gray-400 mt-4">Authenticating...</p>
+        </div>
+    </div>
+
+    <!-- Chat View (Modal) --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/80 backdrop-blur-sm border border-indigo-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-indigo-500/20">
+            <!-- Header --><div class="flex items-center justify-between p-4 border-b border-indigo-500/30">
+                <div class="w-10"></div> <!-- Placeholder --><h2 class="text-xl font-bold">Conversation with Klara</h2>
+                <button id="close-chat-btn" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
+                    <!-- Close (X) SVG --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Messages --><div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto">
+                <!-- Welcome Message (from Klara) --><div class="flex justify-start items-start">
+                    <img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="klara-avatar">
+                    <div class="bg-gray-700/80 backdrop-blur-sm shadow-md rounded-lg p-3 max-w-xs md:max-w-md break-words">
+                        <p>Hi! I'm Klara. How can I help you today?</p>
+                    </div>
+                </div>
+                <!-- Other messages dynamically loaded here --></div>
+
+            <!-- Loading Spinner --><div id="loading-spinner" class="hidden px-6 pb-2">
+                <div class="flex justify-start items-center">
+                    <img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="klara-avatar">
+                    <div class="bg-gray-700/80 backdrop-blur-sm shadow-md rounded-lg p-3 inline-flex items-center space-x-2">
+                        <!-- Spinner SVG --><svg class="animate-spin h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Thinking...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-indigo-500/30">
+                <div class="flex items-center space-x-3">
+                    <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-800/90 border border-gray-700 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" disabled>
+                    <button id="send-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110">
+                        <!-- Send Icon SVG --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden audio player for TTS --><audio id="tts-audio-player" class="hidden"></audio>
+
+    <!-- Firebase and Gemini Logic --><script type="module">
+        // Firebase SDK Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            addDoc, 
+            collection, 
+            query, 
+            onSnapshot, 
+            getDocs,
+            Timestamp
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // DOM Elements
+        const landingView = document.getElementById('landing-view');
+        const chatView = document.getElementById('chat-view');
+        const startChatBtn = document.getElementById('start-chat-btn');
+        const closeChatBtn = document.getElementById('close-chat-btn'); 
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const authStatus = document.getElementById('auth-status');
+        const ttsAudioPlayer = document.getElementById('tts-audio-player');
+
+        const klaraAvatarUrl = "https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg";
+
+        // Firebase Config & Init
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        let userId;
+        let chatCollectionRef;
+        let unsubscribeChat = null;
+
+        // Auth State Handler
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userId = user.uid;
+                chatCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/chats`);
+                authStatus.textContent = "Authenticated successfully. ✅";
+                chatInput.disabled = false;
+                sendBtn.disabled = false;
+                startChatBtn.disabled = false;
+                startChatBtn.classList.remove("opacity-50", "cursor-not-allowed");
+                
+                loadChatHistory();
+            } else {
+                authStatus.textContent = "Authenticating...";
+                chatInput.disabled = true;
+                sendBtn.disabled = true;
+                startChatBtn.disabled = true;
+                startChatBtn.classList.add("opacity-50", "cursor-not-allowed");
+                
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch (error) {
+                    console.error("Authentication Error:", error);
+                    authStatus.textContent = "Authentication failed. Please refresh the page.";
+                }
+            }
+        });
+
+        // View Toggling
+        startChatBtn.addEventListener('click', () => {
+            chatView.classList.remove('hidden', 'fade-out');
+            chatView.classList.add('fade-in');
+            landingView.classList.add('opacity-0'); 
+        });
+
+        closeChatBtn.addEventListener('click', () => {
+            chatView.classList.remove('fade-in');
+            chatView.classList.add('fade-out');
+            setTimeout(() => chatView.classList.add('hidden'), 300); 
+            landingView.classList.remove('opacity-0'); 
+        });
+
+        // Load and Listen for Chat History
+        function loadChatHistory() {
+            if (unsubscribeChat) {
+                unsubscribeChat(); 
+            }
+            const q = query(chatCollectionRef);
+            
+            unsubscribeChat = onSnapshot(q, (snapshot) => {
+                let messages = [];
+                snapshot.docs.forEach(doc => {
+                    messages.push({ id: doc.id, ...doc.data() });
+                });
+
+                messages.sort((a, b) => {
+                    const tsA = a.timestamp?.toMillis() || 0;
+                    const tsB = b.timestamp?.toMillis() || 0;
+                    return tsA - tsB;
+                });
+
+                renderMessages(messages);
+            }, (error) => {
+                console.error("Error fetching chats:", error);
+            });
+        }
+
+        // Render Messages to UI
+        function renderMessages(messages) {
+            // Clear all but the first welcome message
+            const welcomeMessageContainer = chatMessages.children[0];
+            chatMessages.innerHTML = '';
+            chatMessages.appendChild(welcomeMessageContainer);
+            
+            messages.forEach(msg => {
+                addMessageToUI(msg.role, msg.text);
+            });
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Add a single message to UI
+        function addMessageToUI(role, text) {
+            const isUser = role === 'user';
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'} items-start`;
+            
+            if (!isUser) {
+                const avatarImg = document.createElement('img');
+                avatarImg.src = klaraAvatarUrl;
+                avatarImg.alt = "Klara AI Avatar";
+                avatarImg.className = "klara-avatar";
+                messageWrapper.appendChild(avatarImg);
+            }
+
+            const messageBubble = document.createElement('div');
+            messageBubble.className = `${isUser ? 'bg-indigo-600/90' : 'bg-gray-700/80'} backdrop-blur-sm shadow-md rounded-lg p-3 max-w-xs md:max-w-md break-words`;
+            
+            const textElement = document.createElement('p');
+            textElement.textContent = text;
+            messageBubble.appendChild(textElement);
+
+            if (!isUser) {
+                const playButton = document.createElement('button');
+                playButton.className = 'play-tts-btn mt-2 p-1 bg-indigo-500/50 hover:bg-indigo-400/50 rounded-full text-white transition-all';
+                playButton.dataset.text = text;
+                playButton.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
+                messageBubble.appendChild(playButton);
+            }
+            
+            messageWrapper.appendChild(messageBubble);
+            chatMessages.appendChild(messageWrapper);
+        }
+
+        // Set Loading State
+        function setLoading(isLoading) {
+            if (isLoading) {
+                loadingSpinner.classList.remove('hidden');
+                sendBtn.disabled = true;
+                chatInput.disabled = true;
+            } else {
+                loadingSpinner.classList.add('hidden');
+                sendBtn.disabled = false;
+                chatInput.disabled = false;
+                chatInput.focus();
+            }
+        }
+
+        // Send Message
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text || !userId) return;
+
+            setLoading(true);
+            chatInput.value = '';
+
+            try {
+                // 1. Save user message to Firestore
+                const userMessage = {
+                    role: 'user',
+                    text: text,
+                    timestamp: Timestamp.now()
+                };
+                await addDoc(chatCollectionRef, userMessage);
+                
+                // 2. Get AI response
+                await getAIResponse();
+
+            } catch (error) {
+                console.error("Error sending message:", error);
+                addMessageToUI('model', 'Oops, something went wrong. Please try again later.');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // Get AI Response from Gemini
+        async function getAIResponse() {
+            const q = query(chatCollectionRef);
+            const snapshot = await getDocs(q);
+            
+            let messages = [];
+            snapshot.docs.forEach(doc => messages.push(doc.data()));
+            messages.sort((a, b) => (a.timestamp?.toMillis() || 0) - (b.timestamp?.toMillis() || 0));
+
+            const geminiHistory = messages.map(msg => ({
+                role: msg.role === 'user' ? 'user' : 'model',
+                parts: [{ text: msg.text }]
+            }));
+
+            // System prompt in English
+            const systemPrompt = "You are Klara, a helpful, friendly, and empathetic AI assistant. You always respond in English. You remember your conversations and tailor your responses based on that memory.";
+
+            const apiKey = ""; // Handled by Canvas
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: geminiHistory,
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+            };
+
+            const aiText = await fetchWithBackoff(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            // 3. Save AI response to Firestore
+            if (aiText) {
+                const aiMessage = {
+                    role: 'model',
+                    text: aiText,
+                    timestamp: Timestamp.now()
+                };
+                await addDoc(chatCollectionRef, aiMessage);
+            }
+        }
+
+        // Play TTS
+        async function playTTS(text) {
+            try {
+                const apiKey = ""; // Handled by Canvas
+                const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{
+                        parts: [{ text: `Say with a friendly and clear tone: ${text}` }]
+                    }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            speechContext: { languageCode: "en-US" }, 
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Kore" } 
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                const response = await fetch(ttsApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`TTS API error: ${response.statusText}`);
+                }
+
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    ttsAudioPlayer.src = audioUrl;
+                    ttsAudioPlayer.play();
+                } else {
+                    console.error("Invalid TTS response", result);
+                }
+
+            } catch (error) {
+                console.error("Error during TTS playback:", error);
+            }
+        }
+
+        // Event Listeners
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Event delegation for Play buttons
+        chatMessages.addEventListener('click', (e) => {
+            const playButton = e.target.closest('.play-tts-btn');
+            if (playButton) {
+                const textToPlay = playButton.dataset.text;
+                playTTS(textToPlay);
+            }
+        });
+
+
+        // --- HELPER FUNCTIONS ---
+
+        // Fetch with exponential backoff
+        async function fetchWithBackoff(url, options, retries = 5, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) {
+                        if (response.status === 429 || response.status >= 500) {
+                            throw new Error(`API error: ${response.status}`);
+                        }
+                        const errorResult = await response.json();
+                        console.error("API client error:", errorResult);
+                        addMessageToUI('model', `Error with response: ${errorResult.error.message}`);
+                        return null;
+                    }
+                    
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (!text) {
+                        console.error("Empty or invalid response from Gemini:", result);
+                        throw new Error("Empty response");
+                    }
+                    return text;
+
+                } catch (error) {
+                    if (i === retries - 1) {
+                        console.error("API call failed after all retries:", error);
+                        addMessageToUI('model', 'Oops, I can\'t respond. I might be overloaded. Please try again in a bit.');
+                        return null;
+                    }
+                    // Don't log backoff retries as errors
+                    await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
+                }
+            }
+        }
+
+        // Base64 to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Raw PCM to WAV Blob
+        function pcmToWav(pcmData, sampleRate) {
+            const header = new ArrayBuffer(44);
+            const view = new DataView(header);
+            const pcmLength = pcmData.length;
+            const numChannels = 1;
+            const bitsPerSample = 16;
+            const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+            const blockAlign = numChannels * (bitsPerSample / 8);
+            const dataSize = pcmLength * numChannels * (bitsPerSample / 8);
+            const fileSize = 36 + dataSize;
+
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, fileSize, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); 
+            view.setUint16(20, 1, true); 
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitsPerSample, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, dataSize, true);
+
+            const wavData = new Int16Array(header.byteLength / 2 + pcmData.length);
+            wavData.set(new Int16Array(header), 0);
+            wavData.set(pcmData, header.byteLength / 2);
+
+            return new Blob([wavData.buffer], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+    </script>
+</body>
+</html>
+
