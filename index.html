@@ -381,7 +381,10 @@
             // System prompt in English
             const systemPrompt = "You are Klara, a helpful, friendly, and empathetic AI assistant. You always respond in English. You remember your conversations and tailor your responses based on that memory.";
 
-            const apiKey = ""; // Handled by Canvas
+            // -----------------------------------------------------------------
+            // 1. CSERÉLD EZT A SORT A SAJÁT KULCSODRA:
+            const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; // Handled by Canvas
+            // -----------------------------------------------------------------
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             const payload = {
@@ -411,7 +414,10 @@
         // Play TTS
         async function playTTS(text) {
             try {
-                const apiKey = ""; // Handled by Canvas
+                // -----------------------------------------------------------------
+                // 2. CSERÉLD EZT A SORT IS UGYANARRA A KULCSRA:
+                const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; // Handled by Canvas
+                // -----------------------------------------------------------------
                 const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
 
                 const payload = {
@@ -573,4 +579,7 @@
     </script>
 </body>
 </html>
+
+
+
 
