@@ -13,7 +13,8 @@
         body {
             font-family: 'Inter', sans-serif;
             overflow: hidden; /* Prevent background scroll when chat is open */
-            background-image: url('https://img.freepik.com/free-photo/anime-moon-landscape_23-2151645887.jpg?w=360');
+            /* Új háttérkép a kérés alapján */
+            background-image: url('https://www.shutterstock.com/shutterstock/videos/1106523619/thumb/1.jpg?ip=x480');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -29,14 +30,27 @@
             background: #4f46e5; /* indigo-600 */
             border-radius: 3px;
         }
-        /* Glow animation */
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5; }
-            50% { box-shadow: 0 0 20px #6366f1, 0 0 30px #6366f1; }
+        
+        /* Finom ragyogás az ablakokhoz */
+        @keyframes subtle-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.4), inset 0 0 5px rgba(99, 102, 241, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(129, 140, 248, 0.6), inset 0 0 8px rgba(129, 140, 248, 0.3); }
         }
-        .glow-effect {
-            animation: glow 3s infinite ease-in-out;
+        /* Erősebb pulzáló ragyogás a gombhoz */
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5; transform: scale(1); }
+            50% { box-shadow: 0 0 20px #6366f1, 0 0 30px #6366f1; transform: scale(1.03); }
         }
+        
+        .futuristic-window {
+            /* Állandó, finom ragyogás */
+            animation: subtle-glow 4s infinite ease-in-out;
+        }
+        .glow-button {
+            /* Erősebb pulzálás */
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+
         /* Fade-in animation for modal */
         #chat-view.fade-in {
             animation: fadeIn 0.3s ease-out forwards;
@@ -67,13 +81,15 @@
 <body class="text-white min-h-screen">
 
     <!-- Landing View --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500">
-        <div class="max-w-md mx-auto bg-gray-900/70 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/30 ring-1 ring-white/10 shadow-2xl shadow-indigo-500/20">
+        <!-- Frissítve: 'futuristic-window' class hozzáadva, áttetszőség növelve -->
+        <div class="max-w-md mx-auto bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/30 ring-1 ring-white/10 shadow-2xl shadow-indigo-500/20 futuristic-window">
             <!-- Klara's Avatar for Landing --><img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="w-32 h-32 mx-auto rounded-full object-cover border-4 border-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">
             <h1 class="text-4xl font-bold mt-6 mb-3">Hello, I'm Klara</h1>
             <p class="text-lg text-gray-300 mb-8">
                 Your AI assistant who remembers our conversations. Ready to help!
             </p>
-            <button id="start-chat-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-lg glow-effect disabled:opacity-50 disabled:cursor-not-allowed">
+            <!-- Frissítve: 'glow-effect' -> 'glow-button', 'rounded-lg' -> 'rounded-md' -->
+            <button id="start-chat-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button disabled:opacity-50 disabled:cursor-not-allowed">
                 Start Conversation
             </button>
             <p id="auth-status" class="text-sm text-gray-400 mt-4">Authenticating...</p>
@@ -81,7 +97,8 @@
     </div>
 
     <!-- Chat View (Modal) --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/80 backdrop-blur-sm border border-indigo-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-indigo-500/20">
+        <!-- Frissítve: 'futuristic-window' class, áttetszőség növelve -->
+        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-indigo-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-indigo-500/20 futuristic-window">
             <!-- Header --><div class="flex items-center justify-between p-4 border-b border-indigo-500/30">
                 <div class="w-10"></div> <!-- Placeholder --><h2 class="text-xl font-bold">Conversation with Klara</h2>
                 <button id="close-chat-btn" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
@@ -92,7 +109,8 @@
             <!-- Messages --><div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto">
                 <!-- Welcome Message (from Klara) --><div class="flex justify-start items-start">
                     <img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="klara-avatar">
-                    <div class="bg-gray-700/80 backdrop-blur-sm shadow-md rounded-lg p-3 max-w-xs md:max-w-md break-words">
+                    <!-- Frissítve: stílus a JS-ben lévőhöz igazítva (élesebb sarkok, keret) -->
+                    <div class="bg-gray-800/90 border border-gray-600/50 backdrop-blur-sm shadow-md rounded-md p-3 max-w-xs md:max-w-md break-words">
                         <p>Hi! I'm Klara. How can I help you today?</p>
                     </div>
                 </div>
@@ -101,7 +119,8 @@
             <!-- Loading Spinner --><div id="loading-spinner" class="hidden px-6 pb-2">
                 <div class="flex justify-start items-center">
                     <img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="klara-avatar">
-                    <div class="bg-gray-700/80 backdrop-blur-sm shadow-md rounded-lg p-3 inline-flex items-center space-x-2">
+                    <!-- Frissítve: stílus a JS-ben lévőhöz igazítva -->
+                    <div class="bg-gray-800/90 border border-gray-600/50 backdrop-blur-sm shadow-md rounded-md p-3 inline-flex items-center space-x-2">
                         <!-- Spinner SVG --><svg class="animate-spin h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -113,8 +132,10 @@
 
             <!-- Input Area --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-indigo-500/30">
                 <div class="flex items-center space-x-3">
-                    <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-800/90 border border-gray-700 rounded-lg py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent" disabled>
-                    <button id="send-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110">
+                    <!-- Frissítve: élesebb sarkok, sötétebb háttér, erősebb fókusz -->
+                    <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all duration-300" disabled>
+                    <!-- Frissítve: erősebb hover effekt -->
+                    <button id="send-btn" class="bg-indigo-600 hover:bg-indigo-400 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(129,140,248,0.7)]">
                         <!-- Send Icon SVG --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </button>
                 </div>
@@ -130,7 +151,6 @@
         import { 
             getAuth, 
             signInAnonymously, 
-            signInWithCustomToken, 
             onAuthStateChanged 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { 
@@ -143,6 +163,7 @@
             getDocs,
             Timestamp
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
         // DOM Elements
         const landingView = document.getElementById('landing-view');
@@ -159,12 +180,26 @@
         const klaraAvatarUrl = "https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg";
 
         // Firebase Config & Init
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        // -----------------------------------------------------------------
+        // A te Firebase konfigurációd beillesztve:
+        const firebaseConfig = {
+           apiKey: "AIzaSyCduCd8r8soQeRlXFWdkQxkh288P1KKtRw",
+           authDomain: "klara-ai-b480e.firebaseapp.com",
+           projectId: "klara-ai-b480e",
+           storageBucket: "klara-ai-b480e.firebasestorage.app",
+           messagingSenderId: "105905675081",
+           appId: "1:105905675081:web:32a4b87c5501b5c51d9898",
+           measurementId: "G-9C3HHCJHJC"
+        };
+        
+        // A projekt ID-t használjuk az adatok egyedi azonosítására
+        const appId = firebaseConfig.projectId; 
+        // -----------------------------------------------------------------
         
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        // const analytics = getAnalytics(app); // Ha szükséged van rá, kikommentelheted
 
         let userId;
         let chatCollectionRef;
@@ -190,11 +225,10 @@
                 startChatBtn.classList.add("opacity-50", "cursor-not-allowed");
                 
                 try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
+                    // -----------------------------------------------------------------
+                    // Mivel ez már nem a Canvasban fut, a névtelent bejelentkezést használjuk:
+                    await signInAnonymously(auth);
+                    // -----------------------------------------------------------------
                 } catch (error) {
                     console.error("Authentication Error:", error);
                     authStatus.textContent = "Authentication failed. Please refresh the page.";
@@ -269,7 +303,8 @@
             }
 
             const messageBubble = document.createElement('div');
-            messageBubble.className = `${isUser ? 'bg-indigo-600/90' : 'bg-gray-700/80'} backdrop-blur-sm shadow-md rounded-lg p-3 max-w-xs md:max-w-md break-words`;
+            // Frissítve: élesebb sarkok, új színek és keretek
+            messageBubble.className = `${isUser ? 'bg-indigo-700/90 border border-indigo-500/50' : 'bg-gray-800/90 border border-gray-600/50'} backdrop-blur-sm shadow-md rounded-md p-3 max-w-xs md:max-w-md break-words`;
             
             const textElement = document.createElement('p');
             textElement.textContent = text;
