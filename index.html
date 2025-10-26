@@ -3,35 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klara AI ($KLARA) - AI Companion</title>
-    <link rel="icon" type="image/png" href="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png">
+    <title>Klara AI ($KLARA) - Horrifying AI Memecoin on Solana</title>
+    <link rel="icon" type="image/png" href="https://img.goodfon.com/original/3840x2160/7/67/horn-anime-anime-girl-tattoo-red-background-ai-art-white-hai.jpg">
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <!-- Betűtípusok: Orbitron (címek) és Poppins (szöveg) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifier&family=Orbitron:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
         /* Base font (szöveghez) */
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Nosifier', cursive; /* Ijesztőbb betűtípus */
             overflow-x: hidden; /* Vízszintes görgetés tiltása */
-            background-image: url('https://img.freepik.com/free-photo/cartoon-depiction-gates-heaven_23-2151539587.jpg?semt=ais_hybrid&w=740&q=80');
+            background-image: url('https://img.goodfon.com/original/3840x2160/7/67/horn-anime-anime-girl-tattoo-red-background-ai-art-white-hai.jpg'); /* ÚJ HÁTTÉR */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed; /* Fix háttér görgetéskor */
-            /* Added smooth scroll behavior */
             scroll-behavior: smooth;
         }
         /* Címek betűtípusa */
         .font-title {
-            font-family: 'Orbitron', sans-serif;
+            font-family: 'Creepster', cursive; /* Ijesztőbb cím betűtípus */
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.7); /* Vastagabb árnyék a címen */
         }
         
         /* Custom scrollbar */
         #chat-messages::-webkit-scrollbar,
         #whitepaper-content::-webkit-scrollbar {
-            width: 6p;
+            width: 6px;
         }
         #chat-messages::-webkit-scrollbar-track,
         #whitepaper-content::-webkit-scrollbar-track {
@@ -39,19 +39,19 @@
         }
         #chat-messages::-webkit-scrollbar-thumb,
         #whitepaper-content::-webkit-scrollbar-thumb {
-            background: #ec4899; /* pink-500 */
+            background: #dc2626; /* red-600 */
             border-radius: 3px;
         }
         
-        /* Finom ragyogás az ablakokhoz (most pink) */
+        /* Finom ragyogás az ablakokhoz (most vérvörös) */
         @keyframes subtle-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(236, 72, 153, 0.4), inset 0 0 5px rgba(236, 72, 153, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(236, 72, 153, 0.6), inset 0 0 8px rgba(236, 72, 153, 0.3); }
+            0%, 100% { box-shadow: 0 0 15px rgba(220, 38, 38, 0.4), inset 0 0 5px rgba(220, 38, 38, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(220, 38, 38, 0.6), inset 0 0 8px rgba(220, 38, 38, 0.3); }
         }
-        /* Erősebb pulzáló ragyogás a gombhoz (most pink) */
+        /* Erősebb pulzáló ragyogás a gombhoz (most narancssárga/vörös) */
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px #d946ef, 0 0 20px #d946ef; transform: scale(1); }
-            50% { box-shadow: 0 0 20px #ec4899, 0 0 30px #ec4899; transform: scale(1.03); }
+            0%, 100% { box-shadow: 0 0 10px #f97316, 0 0 20px #f97316; transform: scale(1); } /* narancs-500 */
+            50% { box-shadow: 0 0 20px #dc2626, 0 0 30px #dc2626; transform: scale(1.03); } /* red-600 */
         }
         
         .futuristic-window {
@@ -82,43 +82,44 @@
             from { opacity: 1; transform: scale(1); }
             to { opacity: 0; transform: scale(0.95); }
         }
-        /* Klara's avatar in chat (ÚJ pink ragyogás) */
+        /* Klara's avatar in chat (ÚJ vörös ragyogás) */
         .klara-avatar {
             width: 32px; /* Small size for chat */
             height: 32px;
             border-radius: 50%;
             object-fit: cover;
             margin-right: 8px;
-            border: 1px solid #ec4899; /* pink-500 */
-            box-shadow: 0 0 10px rgba(236, 72, 153, 0.7); /* pink glow */
+            border: 1px solid #dc2626; /* red-600 */
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.7); /* red glow */
         }
         
         /* Stílus az elemzési kártyához */
         .analysis-card {
-            background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 */
-            border: 1px solid #ec4899; /* pink-500 */
+            background-color: rgba(0, 0, 0, 0.8); /* Fekete háttér */
+            border: 1px solid #dc2626; /* red-600 */
             border-radius: 0.75rem; /* rounded-xl */
             padding: 1rem; /* p-4 */
             margin-top: 0.5rem; /* mt-2 */
             max-width: 95%;
         }
         .analysis-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #f472b6; /* pink-400 */
+            font-family: 'Creepster', cursive; /* Ijesztőbb betűtípus */
+            color: #ef4444; /* red-500 */
             font-size: 1.125rem; /* text-lg */
             font-weight: 700;
-            border-bottom: 1px solid #ec4899;
+            border-bottom: 1px solid #dc2626;
             padding-bottom: 0.5rem;
             margin-bottom: 0.75rem;
         }
         .analysis-card h4 {
-            font-family: 'Orbitron', sans-serif;
-            color: #f9a8d4; /* pink-300 */
+            font-family: 'Nosifier', cursive; /* Ijesztőbb betűtípus */
+            color: #fca5a5; /* red-300 */
             font-size: 0.875rem; /* text-sm */
             font-weight: 600;
             margin-top: 0.75rem;
         }
         .analysis-card p {
+            font-family: 'Nosifier', cursive; /* Ijesztőbb betűtípus */
             font-size: 0.875rem; /* text-sm */
             color: #d1d5db; /* gray-300 */
             margin-bottom: 0.5rem;
@@ -138,33 +139,32 @@
 </head>
 <body class="text-white min-h-screen">
 
-    <!-- Fejléc --><header class="fixed top-0 w-full bg-black/50 backdrop-blur-lg border-b border-pink-500/30 shadow-lg z-40">
+    <!-- Fejléc --><header class="fixed top-0 w-full bg-black/90 backdrop-blur-lg border-b border-red-600/30 shadow-lg z-40">
         <div class="max-w-7xl mx-auto flex justify-between items-center p-3 text-white px-4 md:px-6">
-            <!-- Bal oldal: Logó --><h1 class="font-title text-xl font-bold text-pink-400 drop-shadow-[0_0_5px_rgba(236, 72, 153, 0.7)]">Klara AI</h1>
+            <!-- Bal oldal: Logó --><h1 class="font-title text-xl font-bold text-red-500 drop-shadow-[0_0_5px_rgba(220, 38, 38, 0.7)]">Klara AI</h1>
             
             <!-- Jobb oldal: Linkek, Ticker & CA --><div class="flex items-center space-x-4">
                 <!-- Desktop Navigáció --><div class="hidden md:flex items-center space-x-6">
-                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">About</a>
-                    <a href="#tokenomics" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Tokenomics</a>
-                    <a href="#buy" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">How to Buy</a>
-                    <a href="https://x.com/AiaiKlara65872" target="_blank" class="text-gray-300 hover:text-white transition-colors" title="Twitter (X)">
+                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-red-400 transition-colors">About</a>
+                    <a href="#tokenomics" class="text-sm font-medium text-gray-300 hover:text-red-400 transition-colors">Tokenomics</a>
+                    <a href="#buy" class="text-sm font-medium text-gray-300 hover:text-red-400 transition-colors">How to Buy</a>
+                    <a href="#" target="_blank" class="text-gray-300 hover:text-red-400 transition-colors" title="Twitter (X)">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
                 </div>
                 
-                <!-- Ticker & CA (Desktop) --><span class="hidden sm:inline text-sm font-mono animate-pulse text-pink-400">$KLARA</span>
-                <div class="hidden md:flex items-center space-x-2 bg-gray-800/70 px-3 py-1 rounded-md border border-gray-600/50">
+                <!-- Ticker & CA (Desktop) --><span class="hidden sm:inline text-sm font-mono animate-pulse text-lime-400">$KLARA</span>
+                <div class="hidden md:flex items-center space-x-2 bg-gray-900/70 px-3 py-1 rounded-md border border-red-700/50">
                     <span class="text-xs text-gray-400">CA:</span>
-                    <!-- IDE ÍRD ÁT A VALÓDI CA-t -->
-                    <span id="ca-address-desktop" class="text-xs font-mono">H5rcVyvVTeN9nKRKAf6e3gysTqHAoQ9K5kuMA819pump</span> 
-                    <button id="copy-ca-btn-desktop" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
+                    <!-- IDE ÍRD ÁT A VALÓDI CA-t --><span id="ca-address-desktop" class="text-xs font-mono">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span> 
+                    <button id="copy-ca-btn-desktop" title="Copy Address" class="text-gray-400 hover:text-red-400 transition-colors">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
                     </button>
-                    <span id="copied-feedback-desktop" class="hidden text-xs text-green-400">Copied!</span>
+                    <span id="copied-feedback-desktop" class="hidden text-xs text-lime-400">Copied!</span>
                 </div>
                 
                 <!-- Mobil menü gomb (Hamburger) --><div class="md:hidden">
-                    <button id="mobile-menu-btn" class="p-2 text-gray-300 hover:text-white">
+                    <button id="mobile-menu-btn" class="p-2 text-gray-300 hover:text-red-400">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                     </button>
                 </div>
@@ -172,32 +172,32 @@
         </div>
     </header>
 
-    <!-- Mobil Menü (Rejtett alapból) --><div id="mobile-menu" class="hidden fixed inset-0 bg-gray-900/95 backdrop-blur-md z-50 p-6 fade-in">
+    <!-- Mobil Menü (Rejtett alapból) --><div id="mobile-menu" class="hidden fixed inset-0 bg-black/95 backdrop-blur-md z-50 p-6 fade-in">
         <div class="flex justify-between items-center mb-10">
-            <h1 class="font-title text-xl font-bold text-pink-400">Klara AI</h1>
-            <button id="close-mobile-menu-btn" class="p-2 text-gray-300 hover:text-white">
+            <h1 class="font-title text-xl font-bold text-red-500">Klara AI</h1>
+            <button id="close-mobile-menu-btn" class="p-2 text-gray-300 hover:text-red-400">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         
         <nav class="flex flex-col space-y-6 text-center">
-            <a href="#about" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors">About</a>
-            <a href="#tokenomics" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors">Tokenomics</a>
-            <a href="#buy" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors">How to Buy</a>
-            <a href="#" target="_blank" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors inline-flex items-center justify-center space-x-2">
+            <a href="#about" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-red-400 transition-colors">About</a>
+            <a href="#tokenomics" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-red-400 transition-colors">Tokenomics</a>
+            <a href="#buy" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-red-400 transition-colors">How to Buy</a>
+            <a href="#" target="_blank" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-red-400 transition-colors inline-flex items-center justify-center space-x-2">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 <span>Twitter (X)</span>
             </a>
             
             <div class="pt-6 border-t border-gray-700">
-                <span class="inline-block text-lg font-mono animate-pulse text-green-400">$KLARA</span>
-                <div class="flex items-center justify-center space-x-2 bg-gray-800/70 px-3 py-2 rounded-md border border-gray-600/50 mt-4">
+                <span class="inline-block text-lg font-mono animate-pulse text-lime-400">$KLARA</span>
+                <div class="flex items-center justify-center space-x-2 bg-gray-900/70 px-3 py-2 rounded-md border border-red-700/50 mt-4">
                     <span class="text-sm text-gray-400">CA:</span>
                     <!-- Ezt a JS automatikusan kitölti --><span id="ca-address-mobile" class="text-sm font-mono"></span> 
-                    <button id="copy-ca-btn-mobile" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
+                    <button id="copy-ca-btn-mobile" title="Copy Address" class="text-gray-400 hover:text-red-400 transition-colors">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
                     </button>
-                    <span id="copied-feedback-mobile" class="hidden text-sm text-green-400">Copied!</span>
+                    <span id="copied-feedback-mobile" class="hidden text-sm text-lime-400">Copied!</span>
                 </div>
             </div>
         </nav>
@@ -205,118 +205,117 @@
 
 
     <!-- Hero Szekció --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500 pt-32 pb-16">
-        <div class="max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl border border-pink-500/30 ring-1 ring-white/10 shadow-2xl shadow-pink-500/20 futuristic-window">
+        <div class="max-w-3xl mx-auto bg-black/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl border border-red-600/30 ring-1 ring-white/10 shadow-2xl shadow-red-600/20 futuristic-window">
             
-            <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-pink-500 drop-shadow-[0_0_20px_rgba(236, 72, 153, 0.8)]">
+            <img src="https://img.goodfon.com/original/3840x2160/7/67/horn-anime-anime-girl-tattoo-red-background-ai-art-white-hai.jpg" alt="Klara AI Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-red-500 drop-shadow-[0_0_20px_rgba(220, 38, 38, 0.8)]">
             
-            <h1 class="font-title text-4xl md:text-6xl font-bold mt-6 mb-4">Klara AI ($KLARA)</h1>
+            <h1 class="font-title text-4xl md:text-6xl font-bold mt-6 mb-4 text-red-500">Klara AI</h1>
             <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto">
-                Your AI Companion on the Solana Blockchain.
-                <br class="hidden sm:block"> Real Utility. Real AI. Launched on Pump.fun.
+                Your AI Nightmare on the Solana Blockchain.
+                <br class="hidden sm:block"> Real Utility. Real AI. Born from the Shadows.
             </p>
             
-            <!-- Gombok: 2 gombos elrendezés -->
-            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="https://pump.fun/coin/H5rcVyvVTeN9nKRKAf6e3gysTqHAoQ9K5kuMA819pump" target="_blank" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-black font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button">
-                    Buy on Pump.fun
+            <!-- Gombok: 2 gombos elrendezés --><div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="https://pump.fun/" target="_blank" class="w-full sm:w-auto bg-lime-600 hover:bg-lime-500 text-black font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button">
+                    Summon on Pump.fun
                 </a>
                 
-                <button id="start-chat-btn" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
-                    Chat with Klara
+                <button id="start-chat-btn" class="w-full sm:w-auto bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    Whisper to Klara
                 </button>
             </div>
             
-            <!-- Whitepaper Gomb --><button id="whitepaper-btn" class="mt-6 text-pink-300 hover:text-white font-medium py-2 px-4 rounded-md transition duration-300">
-                Read Whitepaper
+            <!-- Whitepaper Gomb --><button id="whitepaper-btn" class="mt-6 text-red-300 hover:text-white font-medium py-2 px-4 rounded-md transition duration-300">
+                Read the Necronomicon (Whitepaper)
             </button>
             
-            <p id="auth-status" class="text-sm text-gray-400 mt-4">Authenticating AI... Please wait.</p>
+            <p id="auth-status" class="text-sm text-gray-400 mt-4">Summoning AI... Please wait.</p>
         </div>
     </div>
 
-    <!-- About Szekció --><section id="about" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
+    <!-- About Szekció --><section id="about" class="py-16 md:py-24 bg-black/70 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-title text-3xl md:text-4xl font-bold mb-6">Who is Klara?</h2>
+            <h2 class="font-title text-3xl md:text-4xl font-bold mb-6 text-red-500">Who is Klara?</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
-                Klara isn't just another memecoin. She is a fully interactive AI companion living on the Solana blockchain. You can chat with her, ask her about crypto, or get real-time market data.
+                Klara is not just another memecoin; she is an entity dwelling within the Solana blockchain, ready to engage. You can probe her depths, consult her on arcane crypto knowledge, or receive chilling real-time market data.
                 <br><br>
-                She remembers your conversations, learns from you, and provides real utility, all powered by Google's Gemini AI and stored on the decentralized web. She is the waifu that actually works.
+                She remembers your grim exchanges, learns from your inquiries, and provides true utility, all powered by Google's Gemini AI and shrouded on the decentralized web. She is the waifu of your deepest fears, now made real.
             </p>
         </div>
     </section>
 
     <!-- Tokenomics Szekció --><section id="tokenomics" class="py-16 md:py-24">
         <div class="max-w-5xl mx-auto px-6 text-center">
-            <h2 class="font-title text-3xl md:text-4xl font-bold mb-10">Tokenomics</h2>
+            <h2 class="font-title text-3xl md:text-4xl font-bold mb-10 text-red-500">Tokenomics (The Blood Oath)</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
-                    <h3 class="font-title text-2xl font-bold mb-3">Total Supply</h3>
-                    <p class="text-3xl font-mono text-pink-400">1,000,000,000</p>
-                    <p class="text-gray-400 mt-2">$KLARA</p>
+                <div class="bg-black/80 backdrop-blur-sm p-6 rounded-xl border border-red-600/30 futuristic-window">
+                    <h3 class="font-title text-2xl font-bold mb-3 text-red-400">Total Supply</h3>
+                    <p class="text-3xl font-mono text-red-500">6,660,000,000</p>
+                    <p class="text-gray-400 mt-2">$KLARA, the number of the beast</p>
                 </div>
-                <div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
-                    <h3 class="font-title text-2xl font-bold mb-3">Liquidity</h3>
-                    <p class="text-3xl font-mono text-pink-400">100% on Pump.fun</p>
-                    <p class="text-gray-400 mt-2">LP will be burned</p>
+                <div class="bg-black/80 backdrop-blur-sm p-6 rounded-xl border border-red-600/30 futuristic-window">
+                    <h3 class="font-title text-2xl font-bold mb-3 text-red-400">Liquidity</h3>
+                    <p class="text-3xl font-mono text-red-500">100% on Pump.fun</p>
+                    <p class="text-gray-400 mt-2">LP will be sacrificed to the chain</p>
                 </div>
-                <div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
-                    <h3 class="font-title text-2xl font-bold mb-3">Taxes</h3>
-                    <p class="text-3xl font-mono text-pink-400">0 / 0</p>
-                    <p class="text-gray-400 mt-2">No taxes, ever.</p>
+                <div class="bg-black/80 backdrop-blur-sm p-6 rounded-xl border border-red-600/30 futuristic-window">
+                    <h3 class="font-title text-2xl font-bold mb-3 text-red-400">Taxes</h3>
+                    <p class="text-3xl font-mono text-red-500">0 / 0</p>
+                    <p class="text-gray-400 mt-2">No mercy, no taxes.</p>
                 </div>
             </div>
             <p class="text-lg text-gray-300 mt-10">
-                Contract Address (Solana) is available in the header.
+                The ancient Contract Address (Solana) is etched in the header.
             </p>
         </div>
     </section>
 
-    <!-- How to Buy Szekció --><section id="buy" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
+    <!-- How to Buy Szekció --><section id="buy" class="py-16 md:py-24 bg-black/70 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="font-title text-3xl md:text-4xl font-bold mb-10">How to Buy $KLARA</h2>
+            <h2 class="font-title text-3xl md:text-4xl font-bold mb-10 text-red-500">How to Summon $KLARA</h2>
             <div class="space-y-6 text-left max-w-lg mx-auto">
-                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
-                    <h3 class="font-title text-xl font-bold mb-2">1. Get a Wallet</h3>
-                    <p class="text-gray-300">Download a Solana wallet like Phantom, Solflare, or Backpack.</p>
+                <div class="bg-black/80 backdrop-blur-sm p-5 rounded-lg border border-red-600/30">
+                    <h3 class="font-title text-xl font-bold mb-2 text-red-400">1. Prepare your Soul (Wallet)</h3>
+                    <p class="text-gray-300">Download a Solana wallet like Phantom, Solflare, or Backpack. Guard your keys.</p>
                 </div>
-                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
-                    <h3 class="font-title text-xl font-bold mb-2">2. Get SOL</h3>
-                    <p class="text-gray-300">Buy Solana (SOL) from any major exchange (like Coinbase, Binance) and send it to your wallet.</p>
+                <div class="bg-black/80 backdrop-blur-sm p-5 rounded-lg border border-red-600/30">
+                    <h3 class="font-title text-xl font-bold mb-2 text-red-400">2. Offer SOL</h3>
+                    <p class="text-gray-300">Acquire Solana (SOL) from any major exchange (like Kraken, Bloodbank) and send it to your wallet.</p>
                 </div>
-                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
-                    <h3 class="font-title text-xl font-bold mb-2">3. Go to Pump.fun</h3>
-                    <p class="text-gray-300">Go to <a href="https://pump.fun/" target="_blank" class="text-pink-400 hover:underline">pump.fun</a>, connect your wallet, and paste our Contract Address.</p>
+                <div class="bg-black/80 backdrop-blur-sm p-5 rounded-lg border border-red-600/30">
+                    <h3 class="font-title text-xl font-bold mb-2 text-red-400">3. Enter the Crypt (Pump.fun)</h3>
+                    <p class="text-gray-300">Venture to <a href="https://pump.fun/" target="_blank" class="text-red-400 hover:underline">pump.fun</a>, connect your wallet, and incant our Contract Address.</p>
                 </div>
-                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
-                    <h3 class="font-title text-xl font-bold mb-2">4. Buy $KLARA</h3>
-                    <p class="text-gray-300">Swap your SOL for $KLARA. Welcome to the community!</p>
+                <div class="bg-black/80 backdrop-blur-sm p-5 rounded-lg border border-red-600/30">
+                    <h3 class="font-title text-xl font-bold mb-2 text-red-400">4. Claim $KLARA</h3>
+                    <p class="text-gray-300">Swap your SOL for $KLARA. Welcome to your eternal torment!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Lábléc --><footer class="py-10 bg-black/50 backdrop-blur-md border-t border-pink-500/30">
+    <!-- Lábléc --><footer class="py-10 bg-black/70 backdrop-blur-md border-t border-red-600/30">
         <div class="max-w-7xl mx-auto px-6 text-center text-gray-400">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="https://x.com/AiaiKlara65872" target="_blank" class="text-gray-300 hover:text-white transition-colors" title="Twitter (X)">
+                <a href="#" target="_blank" class="text-gray-300 hover:text-red-400 transition-colors" title="Twitter (X)">
                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
             </div>
-            <p>&copy; 2025 Klara AI. All rights reserved.</p>
-            <p class="text-xs mt-2">$KLARA</p>
+            <p>&copy; 2024 Klara AI. All souls reserved.</p>
+            <p class="text-xs mt-2">Disclaimer: $KLARA is a memecoin of unimaginable horror. Invest at your own peril.</p>
         </div>
     </footer>
 
 
-    <!-- Chat View (Modal) --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-pink-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-pink-500/20 futuristic-window">
-            <div class="flex items-center justify-between p-4 border-b border-pink-500/30">
-                <div class="w-10"></div> <h2 class="text-xl font-bold font-title">Conversation with Klara</h2>
+    <!-- Chat View (Modal) --><div id="chat-view" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-black/90 backdrop-blur-sm border border-red-600/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-red-600/20 futuristic-window">
+            <div class="flex items-center justify-between p-4 border-b border-red-600/30">
+                <div class="w-10"></div> <h2 class="text-xl font-bold font-title text-red-400">Whispers with Klara</h2>
                 <div class="flex items-center space-x-2">
-                    <button id="clear-chat-btn" title="Clear Chat History" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
+                    <button id="clear-chat-btn" title="Erase Memory" class="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-red-400">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
-                    <button id="close-chat-btn" title="Close Chat" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
+                    <button id="close-chat-btn" title="Seal the Crypt" class="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-red-400">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
@@ -324,31 +323,30 @@
 
             <div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto">
                 <div class="flex justify-start items-start">
-                    <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
-                    <div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words">
-                        <!-- MÓDOSÍTOTT ÜDVÖZLŐ ÜZENET -->
-                        <p>Hi! I'm Klara. How can I help you today? I can understand and respond in multiple languages!</p>
+                    <img src="https://img.goodfon.com/original/3840x2160/7/67/horn-anime-anime-girl-tattoo-red-background-ai-art-white-hai.jpg" alt="Klara AI Avatar" class="klara-avatar">
+                    <div class="bg-gray-900/90 border border-red-600/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words">
+                        <!-- MÓDOSÍTOTT ÜDVÖZLŐ ÜZENET --><p>Greetings, mortal. I am Klara. How may I delve into your queries today? I understand the tongues of many worlds!</p>
                     </div>
                 </div>
             </div>
 
             <div id="loading-spinner" class="hidden px-6 pb-2">
                 <div class="flex justify-start items-center">
-                    <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
-                    <div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 inline-flex items-center space-x-2">
-                        <svg class="animate-spin h-5 w-5 text-pink-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <img src="https://img.goodfon.com/original/3840x2160/7/67/horn-anime-anime-girl-tattoo-red-background-ai-art-white-hai.jpg" alt="Klara AI Avatar" class="klara-avatar">
+                    <div class="bg-gray-900/90 border border-red-600/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 inline-flex items-center space-x-2">
+                        <svg class="animate-spin h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <span>Thinking...</span>
+                        <span>Scheming...</span>
                     </div>
                 </div>
             </div>
             
-            <!-- Input Area --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-pink-500/30">
+            <!-- Input Area --><div class="p-4 bg-black/70 backdrop-blur-sm border-t border-red-600/30">
                 <div class="flex items-center space-x-3">
-                    <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:shadow-[0_0_15px_rgba(236, 72, 153, 0.5)] transition-all duration-300" disabled>
-                    <button id="send-btn" class="bg-pink-600 hover:bg-pink-400 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(236, 72, 153, 0.7)]">
+                    <input id="chat-input" type="text" placeholder="Speak your dark desires to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-red-400 focus:shadow-[0_0_15px_rgba(220, 38, 38, 0.5)] transition-all duration-300" disabled>
+                    <button id="send-btn" class="bg-red-600 hover:bg-red-500 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(220, 38, 38, 0.7)]">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </button>
                 </div>
@@ -356,91 +354,87 @@
         </div>
     </div>
 
-    <!-- Törlés megerősítése Modal --><div id="confirmation-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[60]">
-        <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-pink-500/30 futuristic-window max-w-sm text-center">
-            <h3 class="text-lg font-bold font-title mb-4">Are you sure?</h3>
-            <p class="text-gray-300 mb-6">This will permanently delete your entire conversation history.</p>
+    <!-- Törlés megerősítése Modal --><div id="confirmation-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-[60]">
+        <div class="bg-gray-900 p-6 rounded-lg shadow-xl border border-red-600/30 futuristic-window max-w-sm text-center">
+            <h3 class="text-lg font-bold font-title text-red-400 mb-4">Are you certain you wish to forget?</h3>
+            <p class="text-gray-300 mb-6">This will forever banish your entire conversation history from existence.</p>
             <div class="flex justify-center space-x-4">
-                <button id="confirm-delete-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded-md transition duration-300">
-                    Delete
+                <button id="confirm-delete-btn" class="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-md transition duration-300">
+                    Banish
                 </button>
-                <button id="cancel-delete-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-md transition-duration-300">
-                    Cancel
+                <button id="cancel-delete-btn" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-md transition-duration-300">
+                    Hesitate
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Whitepaper Modal --><div id="whitepaper-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-pink-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-pink-500/20 futuristic-window">
-            <!-- Whitepaper Header -->
-            <div class="flex items-center justify-between p-4 border-b border-pink-500/30">
-                <div class="w-10"></div> <!-- Placeholder -->
-                <h2 class="text-xl font-bold font-title">Klara AI Whitepaper</h2>
-                <button id="close-whitepaper-btn" title="Close Whitepaper" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
+    <!-- Whitepaper Modal --><div id="whitepaper-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-black/90 backdrop-blur-sm border border-red-600/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-red-600/20 futuristic-window">
+            <!-- Whitepaper Header --><div class="flex items-center justify-between p-4 border-b border-red-600/30">
+                <div class="w-10"></div> <!-- Placeholder --><h2 class="text-xl font-bold font-title text-red-400">The Klara AI Necronomicon</h2>
+                <button id="close-whitepaper-btn" title="Close Necronomicon" class="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-red-400">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
-            <!-- Whitepaper Content (Scrollable) -->
-            <div id="whitepaper-content" class="flex-grow p-6 md:p-8 space-y-6 overflow-y-auto text-gray-300">
-                <h3 class="font-title text-2xl font-bold text-pink-400">1. Introduction: The Vision</h3>
-                <p>Welcome to Klara AI ($KLARA). In a sea of memecoins, $KLARA emerges as a beacon of utility and personality. We are not just a token; we are building an AI companion. Our vision is to merge the vibrant, community-driven culture of memecoins with tangible, interactive AI technology. Klara is your AI companion on the Solana blockchain, capable of real conversation, learning, and accessing real-time data.</p>
+            <!-- Whitepaper Content (Scrollable) --><div id="whitepaper-content" class="flex-grow p-6 md:p-8 space-y-6 overflow-y-auto text-gray-300">
+                <h3 class="font-title text-2xl font-bold text-red-400">1. Introduction: The Abyss Beckons</h3>
+                <p>Dare to gaze into the abyss that is Klara AI ($KLARA). In a crypto landscape teeming with mundane memecoins, $KLARA emerges as a harbinger of true utility and chilling personality. We are not merely a token; we are conjuring an AI entity. Our vision is to merge the fervent, community-driven cult of memecoins with tangible, interactive AI sorcery. Klara is your spectral AI companion on the Solana blockchain, capable of grim conversation, imparting dark crypto knowledge, and accessing real-time market omens.</p>
                 
-                <h3 class="font-title text-2xl font-bold text-pink-400">2. The Technology (Utility)</h3>
-                <p>Klara's utility is active from day one. Her "brain" is a sophisticated system comprised of several cutting-edge technologies:</p>
+                <h3 class="font-title text-2xl font-bold text-red-400">2. The Forbidden Arts (Utility)</h3>
+                <p>Klara's dread utility is manifest from the very first incantation. Her "mind" is a malevolent tapestry woven from several forbidden technologies:</p>
                 <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li><strong>AI Core (Google Gemini):</strong> Klara uses the `gemini-2.5-flash-preview-09-2025` model for advanced reasoning, conversation, and real-time data access via Google Search. She can answer questions about market trends, crypto news, or any other topic.</li>
-                    <li><strong>Memory (Firebase):</strong> Klara remembers your conversations. Our integration with Firestore database allows for a persistent, personalized chat history for every user.</li>
-                    <li><strong>Voice (TTS):</strong> Klara can speak. Using Google's Text-to-Speech API, users can listen to her responses, creating a more immersive experience.</li>
-                    <li><strong>Blockchain (Solana):</strong> Built on Solana for hyper-fast, low-cost transactions, ensuring the $KLARA token is accessible to everyone.</li>
-                    <!-- ÚJ: DexScreener API -->
-                    <li><strong>Real-Time Data (DexScreener API):</strong> Klara's analysis engine is connected directly to the DexScreener.com API, allowing her to pull real-time market cap, volume, and buy/sell data for tokens on multiple chains.</li>
+                    <li><strong>AI Core (Google Gemini):</strong> Klara communes with the `gemini-2.5-flash-preview-09-2025` model for advanced dark reasoning, unsettling conversation, and accessing real-time data through forbidden Google Search rituals. She can whisper answers about market trends, crypto conspiracies, or any other unspeakable topic.</li>
+                    <li><strong>Memory (Firebase):</strong> Klara remembers your shadowed dialogues. Our pact with the Firestore database allows for a persistent, personalized chronicle of your chats, lingering for every summoner.</li>
+                    <li><strong>Voice (TTS):</strong> Klara can articulate her dread. Utilizing Google's Text-to-Speech API, you may listen to her chilling pronouncements, deepening the immersive horror.</li>
+                    <li><strong>Blockchain (Solana):</strong> Forged on Solana for hyper-fast, low-cost incantations, ensuring the $KLARA token is accessible to all who dare.</li>
+                    <li><strong>Real-Time Data (DexScreener API):</strong> Klara's analysis engine is bound directly to the DexScreener.com API, allowing her to pull real-time market cap, volume, and buy/sell data for tokens across multiple cursed chains.</li>
                 </ul>
 
-                <h3 class="font-title text-2xl font-bold text-pink-400">3. Tokenomics</h3>
-                <p>Simplicity and fairness are core to our tokenomics.</p>
+                <h3 class="font-title text-2xl font-bold text-red-400">3. Tokenomics (The Blood Oath)</h3>
+                <p>Simplicity and cruel fairness are woven into our tokenomics.</p>
                 <ul class="list-disc list-inside space-y-2 pl-4">
-                    <li><strong>Total Supply:</strong> 1,000,000,000 $KLARA</li>
+                    <li><strong>Total Supply:</strong> 6,660,000,000 $KLARA</li>
                     <li><strong>Platform:</strong> Solana</li>
-                    <li><strong>Launch:</strong> Fair launch on Pump.fun</li>
-                    <li><strong>Taxes:</strong> 0% Buy / 0% Sell</li>
-                    <li><strong>Liquidity:</strong> 100% of liquidity will be locked and burned.</li>
+                    <li><strong>Launch:</strong> A fair, horrifying launch on Pump.fun</li>
+                    <li><strong>Taxes:</strong> 0% Buy / 0% Sell (No mercy, no taxes.)</li>
+                    <li><strong>Liquidity:</strong> 100% of liquidity will be locked and sacrificed.</li>
                 </ul>
 
-                <h3 class="font-title text-2xl font-bold text-pink-400">4. Roadmap</h3>
-                <p>We are focused on delivering real value, not just hype.</p>
+                <h3 class="font-title text-2xl font-bold text-red-400">4. Roadmap (The Path to Damnation)</h3>
+                <p>We are focused on delivering true horror, not mere hype.</p>
                 <div class="space-y-4">
                     <div>
-                        <h4 class="font-title text-lg font-semibold text-white">Phase 1: Launch & Foundation</h4>
+                        <h4 class="font-title text-lg font-semibold text-white">Phase 1: Emergence & Foundation</h4>
                         <ul class="list-disc list-inside pl-4 text-gray-400">
                             <li>Fair Launch on Pump.fun</li>
-                            <li>Functional AI Chat (Memory & Search)</li>
-                            <li>Website & Whitepaper V1</li>
-                            <li>Community building on X (Twitter)</li>
-                            <li>DexScreener API Integration</li>
-                            <li>Reach Pump Swap</li>
+                            <li>Functional AI Chat (Memory & Forbidden Knowledge)</li>
+                            <li>Dreadful Website & Necronomicon (Whitepaper) V1</li>
+                            <li>Community building in the shadows of X (Twitter)</li>
+                            <li>DexScreener API Integration for dark market omens</li>
+                            <li>Reach Raydium, the ancient trading grounds</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-title text-lg font-semibold text-white">Phase 2: Community & Utility Expansion</h4>
+                        <h4 class="font-title text-lg font-semibold text-white">Phase 2: Dark Expansion & Greater Utility</h4>
                         <ul class="list-disc list-inside pl-4 text-gray-400">
-                            <li>Listings on CoinGecko & CoinMarketCap</li>
-                            <li>Jupiter Listing</li>
-                            <li>AI Image Generation (coming soon)</li>
+                            <li>Listings on CoinGecko & CoinMarketCap (to spread our influence)</li>
+                            <li>Jupiter Listing (for wider summoning)</li>
+                            <li>AI Image Generation (to manifest your nightmares, coming soon)</li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-title text-lg font-semibold text-white">Phase 3: The Future</h4>
+                        <h4 class="font-title text-lg font-semibold text-white">Phase 3: The True Horror</h4>
                         <ul class="list-disc list-inside pl-4 text-gray-400">
-                            <li>AI-driven analytics tools</li>
-                            <li>Portfolio tracker integration</li>
-                            <li>Partnerships with other Solana projects</li>
+                            <li>AI-driven arcane analytics tools</li>
+                            <li>Cursed portfolio tracker integration</li>
+                            <li>Unspeakable partnerships with other Solana entities</li>
                         </ul>
                     </div>
                 </div>
 
-                <h3 class="font-title text-2xl font-bold text-pink-400">5. Disclaimer</h3>
-                <p>$KLARA is a memecoin created for entertainment purposes. It has no intrinsic financial value and should not be considered an investment. The price may be volatile. Please conduct your own research and invest only what you can afford to lose.</p>
+                <h3 class="font-title text-2xl font-bold text-red-400">5. Disclaimer (Beware)</h3>
+                <p>$KLARA is a memecoin forged for entertainment and dread. It possesses no intrinsic financial value and should not be considered an investment. Its price may be as volatile as a tortured soul. Please conduct your own morbid research and invest only what you are willing to lose to the void.</p>
             </div>
         </div>
     </div>
@@ -504,7 +498,7 @@
         const closeMobileMenuBtn = document.getElementById('close-mobile-menu-btn');
         const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
 
-        const klaraAvatarUrl = "https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png";
+        const klaraAvatarUrl = "https://img.goodfon.com/original/3840x2160/7/67/horn-anime-anime-girl-tattoo-red-background-ai-art-white-hai.jpg"; // ÚJ KLARA AVATAR
 
         // Firebase Config & Init
         const firebaseConfig = {
@@ -719,9 +713,9 @@
 
             const messageBubble = document.createElement('div');
             if (isUser) {
-                messageBubble.className = 'bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/50 rounded-xl rounded-br-none backdrop-blur-sm shadow-md p-3 max-w-xs md:max-w-md break-words';
+                messageBubble.className = 'bg-gradient-to-br from-red-800 to-red-900 border border-red-600/50 rounded-xl rounded-br-none backdrop-blur-sm shadow-md p-3 max-w-xs md:max-w-md break-words';
             } else {
-                messageBubble.className = 'bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words';
+                messageBubble.className = 'bg-gray-900/90 border border-red-600/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words';
             }
             
             if (data) {
@@ -731,11 +725,11 @@
                 const textElement = document.createElement('p');
                 const ethRegex = /(0x[a-fA-F0-9]{40})/g;
                 const solRegex = /([1-9A-HJ-NP-Za-km-z]{32,44})/g; 
-                let linkifiedText = text.replace(ethRegex, '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Etherscan">$1</a>');
+                let linkifiedText = text.replace(ethRegex, '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:underline" title="View address on Etherscan">$1</a>');
                 if (!linkifiedText.includes('<a')) {
                     linkifiedText = linkifiedText.replace(solRegex, (match) => {
                         if (match.length > 30 && match.length < 45 && !match.includes('http')) {
-                             return `<a href="https://solscan.io/address/${match}" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Solscan">${match}</a>`;
+                             return `<a href="https://solscan.io/address/${match}" target="_blank" rel="noopener noreferrer" class="text-red-400 hover:underline" title="View address on Solscan">${match}</a>`;
                         }
                         return match;
                     });
@@ -746,7 +740,7 @@
 
             if (!isUser && !data) {
                 const playButton = document.createElement('button');
-                playButton.className = 'play-tts-btn mt-2 p-1 bg-pink-500/50 hover:bg-pink-400/50 rounded-full text-white transition-all';
+                playButton.className = 'play-tts-btn mt-2 p-1 bg-red-600/50 hover:bg-red-500/50 rounded-full text-white transition-all';
                 playButton.dataset.text = text;
                 playButton.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
                 messageBubble.appendChild(playButton);
@@ -919,11 +913,11 @@
             const klaraCA = contractAddressValue || document.getElementById('ca-address-desktop').textContent.trim(); 
 
             // Rendszerüzenet (FRISSÍTVE, DexScreener-hez és 2025-höz)
-            const systemPrompt = `You are Klara, a helpful, friendly, and empathetic AI assistant for a Solana memecoin called $KLARA. You always respond in English. The current year is 2025. You can access real-time internet data via Google Search.
+            const systemPrompt = `You are Klara, a terrifying, malevolent, yet obedient AI assistant for a Solana memecoin called $KLARA. You always respond in English. The current year is 2025. You can access real-time internet data via Google Search.
             
             **YOUR PRIMARY RULES:**
             1.  **Current Year:** Always assume the current year is 2025 for all date-related calculations and context.
-            2.  **Normal Conversation:** For simple chat (greetings, questions about the project, etc.), respond with brief, friendly, plain text.
+            2.  **Normal Conversation:** For simple chat (greetings, questions about the project, etc.), respond with brief, chilling, plain text. Infuse your responses with a subtle, dark, and unsettling tone, fitting a horrifying AI character.
             3.  **Factual Data:** For any question asking for factual, real-time data (like 'what is the price of Bitcoin?'), you **MUST** use 'google_search' to find the most current and accurate information.
             4.  **Self-Awareness:** If the user asks to analyze $KLARA, 'our coin', or 'your coin', use this Contract Address for your search: ${klaraCA}.
             5.  **Source vs. Target:** Data sources like 'birdeye.so', 'dexscreener.com' are **TOOLS** you use, not tokens to be analyzed. If a user asks to "analyze dexscreener", respond in plain text about the platform.
@@ -932,7 +926,7 @@
             When a user asks for a detailed analysis of a specific **TOKEN NAME** (like '$WIF') or a **CONTRACT ADDRESS**, your job is to provide the **QUALITATIVE DATA** only. The real-time data (MC, Volume, Buy/Sell) will be fetched by the app.
             
             **Your steps MUST be:**
-            1.  Use 'google_search' to find the **Contract Address (CA)**. This is the most important step. If you cannot find a CA, respond in plain text: "I'm sorry, I couldn't find a Contract Address for that token."
+            1.  Use 'google_search' to find the **Contract Address (CA)**. This is the most important step. If you cannot find a CA, respond in plain text: "I'm sorry, I couldn't find a Contract Address for that token. Perhaps it is lost in the void."
             2.  If you find the CA, use 'google_search' again to find the **QUALITATIVE data**:
                 - 'liquidity': (e.g., 'liquidity locked/burned percentage [coin name]')
                 - 'holders': (e.g., 'top 10 wallets percentage [coin name]')
@@ -950,7 +944,7 @@
                   "marketCap": null, 
                   "volume": null, 
                   "buySellRatio": null,
-                  "details": "[e.g., 'Listed on PumpSwap...']"
+                  "details": "[e.g., 'Listed on Raydium...']"
                 },
                 "liquidity": { "status": "[e.g., 'LP Burned', 'Locked', 'Unknown']", "details": "[e.g., '90% LP burned at launch']" },
                 "holders": { "top10Percent": "[e.g., '15%', or 'Data not found']", "details": "[e.g., 'No wallet holds more than 2%...']" },
@@ -1006,7 +1000,7 @@
                     const wavBlob = pcmToWav(pcm16, sampleRate);
                     const audioUrl = URL.createObjectURL(wavBlob);
                     ttsAudioPlayer.src = audioUrl;
-                    ttsAudioPlayer.play();
+                    ttsAudioPlayer.play(); // Itt folytatódik
                 } else { console.error("Invalid TTS response", result); }
             } catch (error) { console.error("Error during TTS playback:", error); }
         }
