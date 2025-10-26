@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klara AI ($KLARA) - AI Memecoin on Solana</title>
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- ÚJ Betűtípusok: Orbitron (címek) és Poppins (szöveg) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Betűtípusok: Orbitron (címek) és Poppins (szöveg) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ÚJ Base font (szöveghez) */
+        /* Base font (szöveghez) */
         body {
             font-family: 'Poppins', sans-serif;
             overflow-x: hidden; /* Vízszintes görgetés tiltása */
@@ -19,20 +19,25 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed; /* Fix háttér görgetéskor */
+            /* Added smooth scroll behavior */
+            scroll-behavior: smooth;
         }
-        /* ÚJ Címek betűtípusa */
+        /* Címek betűtípusa */
         .font-title {
             font-family: 'Orbitron', sans-serif;
         }
         
         /* Custom scrollbar */
-        #chat-messages::-webkit-scrollbar {
+        #chat-messages::-webkit-scrollbar,
+        #whitepaper-content::-webkit-scrollbar {
             width: 6px;
         }
-        #chat-messages::-webkit-scrollbar-track {
+        #chat-messages::-webkit-scrollbar-track,
+        #whitepaper-content::-webkit-scrollbar-track {
             background: transparent;
         }
-        #chat-messages::-webkit-scrollbar-thumb {
+        #chat-messages::-webkit-scrollbar-thumb,
+        #whitepaper-content::-webkit-scrollbar-thumb {
             background: #ec4899; /* pink-500 */
             border-radius: 3px;
         }
@@ -58,10 +63,14 @@
         }
 
         /* Fade-in animation for modal */
-        #chat-view.fade-in {
+        #chat-view.fade-in,
+        #whitepaper-modal.fade-in,
+        #mobile-menu.fade-in {
             animation: fadeIn 0.3s ease-out forwards;
         }
-        #chat-view.fade-out {
+        #chat-view.fade-out,
+        #whitepaper-modal.fade-out,
+        #mobile-menu.fade-out {
             animation: fadeOut 0.3s ease-in forwards;
         }
         @keyframes fadeIn {
@@ -88,11 +97,10 @@
 
     <!-- Fejléc MÓDOSÍTVA --><header class="fixed top-0 w-full bg-black/50 backdrop-blur-lg border-b border-pink-500/30 shadow-lg z-40">
         <div class="max-w-7xl mx-auto flex justify-between items-center p-3 text-white px-4 md:px-6">
-            <!-- Bal oldal: Logó (Új betűtípus) --><h1 class="font-title text-xl font-bold text-pink-400 drop-shadow-[0_0_5px_rgba(236, 72, 153, 0.7)]">Klara AI</h1>
+            <!-- Bal oldal: Logó --><h1 class="font-title text-xl font-bold text-pink-400 drop-shadow-[0_0_5px_rgba(236, 72, 153, 0.7)]">Klara AI</h1>
             
             <!-- Jobb oldal: Linkek, Ticker & CA --><div class="flex items-center space-x-4">
-                <!-- ÚJ: Navigációs linkek -->
-                <div class="hidden md:flex items-center space-x-6">
+                <!-- Desktop Navigáció --><div class="hidden md:flex items-center space-x-6">
                     <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">About</a>
                     <a href="#tokenomics" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Tokenomics</a>
                     <a href="#buy" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">How to Buy</a>
@@ -101,49 +109,87 @@
                     </a>
                 </div>
                 
-                <!-- Meglévő Ticker & CA --><span class="hidden sm:inline text-sm font-mono animate-pulse text-green-400">$KLARA</span>
+                <!-- Ticker & CA (Desktop) --><span class="hidden sm:inline text-sm font-mono animate-pulse text-green-400">$KLARA</span>
                 <div class="hidden md:flex items-center space-x-2 bg-gray-800/70 px-3 py-1 rounded-md border border-gray-600/50">
                     <span class="text-xs text-gray-400">CA:</span>
-                    <span id="ca-address" class="text-xs font-mono">So1KLara...a1b2c3d4e5</span>
-                    <button id="copy-ca-btn" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
+                    <span id="ca-address-desktop" class="text-xs font-mono">So1KLara...a1b2c3d4e5</span>
+                    <button id="copy-ca-btn-desktop" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
                     </button>
-                    <span id="copied-feedback" class="hidden text-xs text-green-400">Copied!</span>
+                    <span id="copied-feedback-desktop" class="hidden text-xs text-green-400">Copied!</span>
                 </div>
-                <!-- Mobil menü gomb (későbbi fejlesztéshez, ha kell) -->
-                <div class="md:hidden">
-                    <!-- Hamburger icon, etc. -->
+                
+                <!-- Mobil menü gomb (Hamburger) --><div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 text-gray-300 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Szekció MÓDOSÍTVA --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500 pt-32 pb-16">
+    <!-- ÚJ: Mobil Menü (Rejtett alapból) --><div id="mobile-menu" class="hidden fixed inset-0 bg-gray-900/95 backdrop-blur-md z-50 p-6 fade-in">
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="font-title text-xl font-bold text-pink-400">Klara AI</h1>
+            <button id="close-mobile-menu-btn" class="p-2 text-gray-300 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <nav class="flex flex-col space-y-6 text-center">
+            <a href="#about" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors">About</a>
+            <a href="#tokenomics" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors">Tokenomics</a>
+            <a href="#buy" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors">How to Buy</a>
+            <a href="#" target="_blank" class="mobile-menu-link text-xl font-medium text-gray-300 hover:text-white transition-colors inline-flex items-center justify-center space-x-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                <span>Twitter (X)</span>
+            </a>
+            
+            <div class="pt-6 border-t border-gray-700">
+                <span class="inline-block text-lg font-mono animate-pulse text-green-400">$KLARA</span>
+                <div class="flex items-center justify-center space-x-2 bg-gray-800/70 px-3 py-2 rounded-md border border-gray-600/50 mt-4">
+                    <span class="text-sm text-gray-400">CA:</span>
+                    <span id="ca-address-mobile" class="text-sm font-mono">So1KLara...a1b2c3d4e5</span>
+                    <button id="copy-ca-btn-mobile" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <span id="copied-feedback-mobile" class="hidden text-sm text-green-400">Copied!</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+
+    <!-- Hero Szekció MÓDOSÍTVA (Új gomb) --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500 pt-32 pb-16">
         <div class="max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl border border-pink-500/30 ring-1 ring-white/10 shadow-2xl shadow-pink-500/20 futuristic-window">
             
-            <!-- Avatar (új pink ragyogás) --><img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-pink-500 drop-shadow-[0_0_20px_rgba(236, 72, 153, 0.8)]">
+            <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-pink-500 drop-shadow-[0_0_20px_rgba(236, 72, 153, 0.8)]">
             
-            <!-- Cím (Új betűtípus) --><h1 class="font-title text-4xl md:text-6xl font-bold mt-6 mb-4">Klara AI ($KLARA)</h1>
-            <!-- Szöveg (MÓDOSÍTVA) --><p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto">
+            <h1 class="font-title text-4xl md:text-6xl font-bold mt-6 mb-4">Klara AI ($KLARA)</h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto">
                 Your AI Companion on the Solana Blockchain.
                 <br class="hidden sm:block"> Real Utility. Real AI. Launched on Pump.fun.
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <!-- Pump.fun gomb (új pink ragyogás) --><a href="https://pump.fun/" target="_blank" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-black font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button">
+                <a href="https://pump.fun/" target="_blank" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-black font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button">
                     Buy on Pump.fun
                 </a>
                 
-                <!-- Chat gomb (új pink szín) --><button id="start-chat-btn" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                <button id="start-chat-btn" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
                     Chat with Klara
                 </button>
             </div>
             
-            <p id="auth-status" class="text-sm text-gray-400 mt-6">Authenticating AI... Please wait.</p>
+            <!-- ÚJ: Whitepaper Gomb --><button id="whitepaper-btn" class="mt-6 text-pink-300 hover:text-white font-medium py-2 px-4 rounded-md transition duration-300">
+                Read Whitepaper
+            </button>
+            
+            <p id="auth-status" class="text-sm text-gray-400 mt-4">Authenticating AI... Please wait.</p>
         </div>
     </div>
 
-    <!-- About Szekció (Új betűtípus) --><section id="about" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
+    <!-- About Szekció --><section id="about" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="font-title text-3xl md:text-4xl font-bold mb-6">Who is Klara?</h2>
             <p class="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
@@ -154,21 +200,21 @@
         </div>
     </section>
 
-    <!-- Tokenomics Szekció (Új betűtípus és színek) --><section id="tokenomics" class="py-16 md:py-24">
+    <!-- Tokenomics Szekció --><section id="tokenomics" class="py-16 md:py-24">
         <div class="max-w-5xl mx-auto px-6 text-center">
             <h2 class="font-title text-3xl md:text-4xl font-bold mb-10">Tokenomics</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Kártya 1 --><div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
                     <h3 class="font-title text-2xl font-bold mb-3">Total Supply</h3>
                     <p class="text-3xl font-mono text-pink-400">1,000,000,000</p>
                     <p class="text-gray-400 mt-2">$KLARA</p>
                 </div>
-                <!-- Kártya 2 --><div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
                     <h3 class="font-title text-2xl font-bold mb-3">Liquidity</h3>
                     <p class="text-3xl font-mono text-pink-400">100% on Pump.fun</p>
                     <p class="text-gray-400 mt-2">LP will be burned</p>
                 </div>
-                <!-- Kártya 3 --><div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
                     <h3 class="font-title text-2xl font-bold mb-3">Taxes</h3>
                     <p class="text-3xl font-mono text-pink-400">0 / 0</p>
                     <p class="text-gray-400 mt-2">No taxes, ever.</p>
@@ -180,23 +226,23 @@
         </div>
     </section>
 
-    <!-- How to Buy Szekció (Új betűtípus és színek) --><section id="buy" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
+    <!-- How to Buy Szekció --><section id="buy" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="font-title text-3xl md:text-4xl font-bold mb-10">How to Buy $KLARA</h2>
             <div class="space-y-6 text-left max-w-lg mx-auto">
-                <!-- Lépés 1 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
                     <h3 class="font-title text-xl font-bold mb-2">1. Get a Wallet</h3>
                     <p class="text-gray-300">Download a Solana wallet like Phantom, Solflare, or Backpack.</p>
                 </div>
-                <!-- Lépés 2 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
                     <h3 class="font-title text-xl font-bold mb-2">2. Get SOL</h3>
                     <p class="text-gray-300">Buy Solana (SOL) from any major exchange (like Coinbase, Binance) and send it to your wallet.</p>
                 </div>
-                <!-- Lépés 3 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
                     <h3 class="font-title text-xl font-bold mb-2">3. Go to Pump.fun</h3>
                     <p class="text-gray-300">Go to <a href="https://pump.fun/" target="_blank" class="text-pink-400 hover:underline">pump.fun</a>, connect your wallet, and paste our Contract Address.</p>
                 </div>
-                <!-- Lépés 4 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                <div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
                     <h3 class="font-title text-xl font-bold mb-2">4. Buy $KLARA</h3>
                     <p class="text-gray-300">Swap your SOL for $KLARA. Welcome to the community!</p>
                 </div>
@@ -204,23 +250,23 @@
         </div>
     </section>
 
-    <!-- Lábléc MÓDOSÍTVA (Telegram törölve) --><footer class="py-10 bg-black/50 backdrop-blur-md border-t border-pink-500/30">
+    <!-- Lábléc --><footer class="py-10 bg-black/50 backdrop-blur-md border-t border-pink-500/30">
         <div class="max-w-7xl mx-auto px-6 text-center text-gray-400">
             <div class="flex justify-center space-x-6 mb-4">
                 <a href="#" target="_blank" class="text-gray-300 hover:text-white transition-colors" title="Twitter (X)">
                     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                 </a>
             </div>
-            <p>&copy; 2025 Klara AI. All rights reserved.</p>
+            <p>&copy; 2024 Klara AI. All rights reserved.</p>
             <p class="text-xs mt-2">Disclaimer: $KLARA is a memecoin with no intrinsic value. Invest at your own risk.</p>
         </div>
     </footer>
 
 
-    <!-- Chat View (Modal) MÓDOSÍTVA --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
+    <!-- Chat View (Modal) --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
         <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-pink-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-pink-500/20 futuristic-window">
-            <!-- Header (Új betűtípus) --><div class="flex items-center justify-between p-4 border-b border-pink-500/30">
-                <div class="w-10"></div> <!-- Placeholder --><h2 class="text-xl font-bold font-title">Conversation with Klara</h2>
+            <div class="flex items-center justify-between p-4 border-b border-pink-500/30">
+                <div class="w-10"></div> <h2 class="text-xl font-bold font-title">Conversation with Klara</h2>
                 <div class="flex items-center space-x-2">
                     <button id="clear-chat-btn" title="Clear Chat History" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -231,16 +277,16 @@
                 </div>
             </div>
 
-            <!-- Messages --><div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto">
+            <div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto">
                 <div class="flex justify-start items-start">
                     <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
-                    <!-- Üdvözlő buborék (Új dizájn) --><div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words">
+                    <div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words">
                         <p>Hi! I'm Klara. How can I help you today?</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Loading Spinner (Új szín) --><div id="loading-spinner" class="hidden px-6 pb-2">
+            <div id="loading-spinner" class="hidden px-6 pb-2">
                 <div class="flex justify-start items-center">
                     <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
                     <div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 inline-flex items-center space-x-2">
@@ -253,7 +299,7 @@
                 </div>
             </div>
 
-            <!-- Input Area (Új dizájn) --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-pink-500/30">
+            <div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-pink-500/30">
                 <div class="flex items-center space-x-3">
                     <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:shadow-[0_0_15px_rgba(236, 72, 153, 0.5)] transition-all duration-300" disabled>
                     <button id="send-btn" class="bg-pink-600 hover:bg-pink-400 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(236, 72, 153, 0.7)]">
@@ -264,7 +310,7 @@
         </div>
     </div>
 
-    <!-- Törlés megerősítése Modal (Új dizájn) --><div id="confirmation-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[60]">
+    <!-- Törlés megerősítése Modal --><div id="confirmation-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[60]">
         <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-pink-500/30 futuristic-window max-w-sm text-center">
             <h3 class="text-lg font-bold font-title mb-4">Are you sure?</h3>
             <p class="text-gray-300 mb-6">This will permanently delete your entire conversation history.</p>
@@ -275,6 +321,78 @@
                 <button id="cancel-delete-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-md transition-duration-300">
                     Cancel
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÚJ: Whitepaper Modal --><div id="whitepaper-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-pink-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-pink-500/20 futuristic-window">
+            <!-- Whitepaper Header -->
+            <div class="flex items-center justify-between p-4 border-b border-pink-500/30">
+                <div class="w-10"></div> <!-- Placeholder -->
+                <h2 class="text-xl font-bold font-title">Klara AI Whitepaper</h2>
+                <button id="close-whitepaper-btn" title="Close Whitepaper" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <!-- Whitepaper Content (Scrollable) -->
+            <div id="whitepaper-content" class="flex-grow p-6 md:p-8 space-y-6 overflow-y-auto text-gray-300">
+                <h3 class="font-title text-2xl font-bold text-pink-400">1. Introduction: The Vision</h3>
+                <p>Welcome to Klara AI ($KLARA). In a sea of memecoins, $KLARA emerges as a beacon of utility and personality. We are not just a token; we are building an AI companion. Our vision is to merge the vibrant, community-driven culture of memecoins with tangible, interactive AI technology. Klara is your AI companion on the Solana blockchain, capable of real conversation, learning, and accessing real-time data.</p>
+                
+                <h3 class="font-title text-2xl font-bold text-pink-400">2. The Technology (Utility)</h3>
+                <p>Klara's utility is active from day one. Her "brain" is a sophisticated system comprised of several cutting-edge technologies:</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>AI Core (Google Gemini):</strong> Klara uses the `gemini-2.5-flash-preview-09-2025` model for advanced reasoning, conversation, and real-time data access via Google Search. She can answer questions about market trends, crypto news, or any other topic.</li>
+                    <li><strong>Memory (Firebase):</strong> Klara remembers your conversations. Our integration with Firestore database allows for a persistent, personalized chat history for every user.</li>
+                    <li><strong>Voice (TTS):</strong> Klara can speak. Using Google's Text-to-Speech API, users can listen to her responses, creating a more immersive experience.</li>
+                    <li><strong>Blockchain (Solana):</strong> Built on Solana for hyper-fast, low-cost transactions, ensuring the $KLARA token is accessible to everyone.</li>
+                </ul>
+
+                <h3 class="font-title text-2xl font-bold text-pink-400">3. Tokenomics</h3>
+                <p>Simplicity and fairness are core to our tokenomics.</p>
+                <ul class="list-disc list-inside space-y-2 pl-4">
+                    <li><strong>Total Supply:</strong> 1,000,000,000 $KLARA</li>
+                    <li><strong>Platform:</strong> Solana</li>
+                    <li><strong>Launch:</strong> Fair launch on Pump.fun</li>
+                    <li><strong>Taxes:</strong> 0% Buy / 0% Sell</li>
+                    <li><strong>Liquidity:</strong> 100% of liquidity will be locked and burned.</li>
+                </ul>
+
+                <h3 class="font-title text-2xl font-bold text-pink-400">4. Roadmap</h3>
+                <p>We are focused on delivering real value, not just hype.</p>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-title text-lg font-semibold text-white">Phase 1: Launch & Foundation</h4>
+                        <ul class="list-disc list-inside pl-4 text-gray-400">
+                            <li>Fair Launch on Pump.fun</li>
+                            <li>Functional AI Chat (Memory & Search)</li>
+                            <li>Website & Whitepaper V1</li>
+                            <li>Community building on X (Twitter)</li>
+                            <li>Reach Raydium</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-title text-lg font-semibold text-white">Phase 2: Community & Utility Expansion</h4>
+                        <ul class="list-disc list-inside pl-4 text-gray-400">
+                            <li>Listings on CoinGecko & CoinMarketCap</li>
+                            <li>Jupiter Listing</li>
+                            <li>Real-time price ticker integration</li>
+                            <li>AI Image Generation (coming soon)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-title text-lg font-semibold text-white">Phase 3: The Future</h4>
+                        <ul class="list-disc list-inside pl-4 text-gray-400">
+                            <li>AI-driven analytics tools</li>
+                            <li>Portfolio tracker integration</li>
+                            <li>Partnerships with other Solana projects</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 class="font-title text-2xl font-bold text-pink-400">5. Disclaimer</h3>
+                <p>$KLARA is a memecoin created for entertainment purposes. It has no intrinsic financial value and should not be considered an investment. The price may be volatile. Please conduct your own research and invest only what you can afford to lose.</p>
             </div>
         </div>
     </div>
@@ -313,14 +431,30 @@
         const authStatus = document.getElementById('auth-status');
         const ttsAudioPlayer = document.getElementById('tts-audio-player');
         
-        // DOM Elemek
-        const copyCaBtn = document.getElementById('copy-ca-btn');
-        const caAddress = document.getElementById('ca-address');
-        const copiedFeedback = document.getElementById('copied-feedback');
+        // CA Gombok (Desktop & Mobil)
+        const copyCaBtnDesktop = document.getElementById('copy-ca-btn-desktop');
+        const caAddressDesktop = document.getElementById('ca-address-desktop');
+        const copiedFeedbackDesktop = document.getElementById('copied-feedback-desktop');
+        const copyCaBtnMobile = document.getElementById('copy-ca-btn-mobile');
+        const caAddressMobile = document.getElementById('ca-address-mobile');
+        const copiedFeedbackMobile = document.getElementById('copied-feedback-mobile');
+        
+        // Törlés gombok
         const clearChatBtn = document.getElementById('clear-chat-btn');
         const confirmationModal = document.getElementById('confirmation-modal');
         const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
         const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
+
+        // ÚJ: Whitepaper Gombok
+        const whitepaperBtn = document.getElementById('whitepaper-btn');
+        const whitepaperModal = document.getElementById('whitepaper-modal');
+        const closeWhitepaperBtn = document.getElementById('close-whitepaper-btn');
+
+        // ÚJ: Mobil Menü Gombok
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMobileMenuBtn = document.getElementById('close-mobile-menu-btn');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
 
         const klaraAvatarUrl = "https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png";
 
@@ -373,7 +507,42 @@
             }
         });
 
-        // View Toggling
+        // --- ÚJ Event Listenerek (Mobil Menü & Whitepaper) ---
+
+        // Mobil Menü
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden', 'fade-out');
+            mobileMenu.classList.add('fade-in');
+        });
+
+        closeMobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('fade-in');
+            mobileMenu.classList.add('fade-out');
+            setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+        });
+
+        // Linkek bezárják a menüt kattintáskor
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('fade-in');
+                mobileMenu.classList.add('fade-out');
+                setTimeout(() => mobileMenu.classList.add('hidden'), 300);
+            });
+        });
+
+        // Whitepaper Modal
+        whitepaperBtn.addEventListener('click', () => {
+            whitepaperModal.classList.remove('hidden', 'fade-out');
+            whitepaperModal.classList.add('fade-in');
+        });
+
+        closeWhitepaperBtn.addEventListener('click', () => {
+            whitepaperModal.classList.remove('fade-in');
+            whitepaperModal.classList.add('fade-out');
+            setTimeout(() => whitepaperModal.classList.add('hidden'), 300);
+        });
+
+        // Chat View
         startChatBtn.addEventListener('click', () => {
             chatView.classList.remove('hidden', 'fade-out');
             chatView.classList.add('fade-in');
@@ -384,6 +553,8 @@
             chatView.classList.add('fade-out');
             setTimeout(() => chatView.classList.add('hidden'), 300); 
         });
+
+        // --- Meglévő Funkciók ---
 
         // Load and Listen for Chat History
         function loadChatHistory() {
@@ -412,7 +583,6 @@
 
         // Render Messages to UI
         function renderMessages(messages) {
-            // Clear all but the first welcome message
             const welcomeMessageContainer = chatMessages.children[0];
             chatMessages.innerHTML = '';
             chatMessages.appendChild(welcomeMessageContainer);
@@ -423,7 +593,7 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Add a single message to UI (MÓDOSÍTVA)
+        // Add a single message to UI
         function addMessageToUI(role, text) {
             const isUser = role === 'user';
             const messageWrapper = document.createElement('div');
@@ -438,14 +608,12 @@
             }
 
             const messageBubble = document.createElement('div');
-            // ÚJ BUBORÉK DIZÁJN
             messageBubble.className = `${isUser ? 'bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/50 rounded-xl rounded-br-none' : 'bg-gray-800/90 border border-pink-500/50 rounded-xl rounded-bl-none'} backdrop-blur-sm shadow-md p-3 max-w-xs md:max-w-md break-words`;
             
             const textElement = document.createElement('p');
             
-            // Kripto cím felismerés (ÚJ pink link szín)
             const ethRegex = /(0x[a-fA-F0-9]{40})/g;
-            const solRegex = /([1-9A-HJ-NP-Za-km-z]{32,44})/g; // Solana cím regex
+            const solRegex = /([1-9A-HJ-NP-Za-km-z]{32,44})/g; 
             
             let linkifiedText = text.replace(ethRegex, 
                 '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Etherscan">$1</a>'
@@ -466,7 +634,6 @@
 
             if (!isUser) {
                 const playButton = document.createElement('button');
-                // ÚJ pink gomb
                 playButton.className = 'play-tts-btn mt-2 p-1 bg-pink-500/50 hover:bg-pink-400/50 rounded-full text-white transition-all';
                 playButton.dataset.text = text;
                 playButton.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
@@ -529,7 +696,6 @@
                 parts: [{ text: msg.text }]
             }));
 
-            // Rendszerüzenet (Solana fókusszal)
             const systemPrompt = "You are Klara, a helpful, friendly, and empathetic AI assistant for a Solana memecoin called $KLARA. You always respond in English. You can access real-time internet data via Google Search for crypto prices, contract addresses (especially Solana), and live events. You also recognize Ethereum (0x...) and Solana (44-char base58) addresses in chat and will provide links for them. IMPORTANT: Keep your answers concise, informative, and to the point. Be brief unless asked for details. Always be positive about the $KLARA project.";
 
             const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; 
@@ -614,9 +780,9 @@
             }
         }
 
-        // CA Másolása
-        copyCaBtn.addEventListener('click', () => {
-            const address = caAddress.textContent;
+        // CA Másolása (Mindkét gombra)
+        function handleCopyClick(addressElement, feedbackElement) {
+            const address = addressElement.textContent;
             const textArea = document.createElement('textarea');
             textArea.value = address;
             textArea.style.position = 'absolute';
@@ -626,15 +792,19 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                copiedFeedback.classList.remove('hidden');
+                feedbackElement.classList.remove('hidden');
                 setTimeout(() => {
-                    copiedFeedback.classList.add('hidden');
+                    feedbackElement.classList.add('hidden');
                 }, 2000);
             } catch (err) {
                 console.error('Failed to copy text: ', err);
             }
             document.body.removeChild(textArea);
-        });
+        }
+        
+        copyCaBtnDesktop.addEventListener('click', () => handleCopyClick(caAddressDesktop, copiedFeedbackDesktop));
+        copyCaBtnMobile.addEventListener('click', () => handleCopyClick(caAddressMobile, copiedFeedbackMobile));
+
 
         // Törlés gombok
         clearChatBtn.addEventListener('click', () => {
