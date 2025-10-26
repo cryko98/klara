@@ -3,22 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klara - AI Assistant</title>
+    <title>Klara AI ($KLARA) - AI Memecoin on Solana</title>
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
-    <!-- Inter Font --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- ÚJ Betűtípusok: Orbitron (címek) és Poppins (szöveg) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        /* Base font */
+        /* ÚJ Base font (szöveghez) */
         body {
-            font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Prevent background scroll when chat is open */
-            /* Új háttérkép a kérés alapján */
-            background-image: url('https://www.shutterstock.com/shutterstock/videos/1106523619/thumb/1.jpg?ip=x480');
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden; /* Vízszintes görgetés tiltása */
+            background-image: url('https://img.freepik.com/free-photo/cartoon-depiction-gates-heaven_23-2151539587.jpg?semt=ais_hybrid&w=740&q=80');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            background-attachment: fixed; /* Fix háttér görgetéskor */
         }
+        /* ÚJ Címek betűtípusa */
+        .font-title {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
         /* Custom scrollbar */
         #chat-messages::-webkit-scrollbar {
             width: 6px;
@@ -27,19 +33,19 @@
             background: transparent;
         }
         #chat-messages::-webkit-scrollbar-thumb {
-            background: #4f46e5; /* indigo-600 */
+            background: #ec4899; /* pink-500 */
             border-radius: 3px;
         }
         
-        /* Finom ragyogás az ablakokhoz */
+        /* Finom ragyogás az ablakokhoz (most pink) */
         @keyframes subtle-glow {
-            0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.4), inset 0 0 5px rgba(99, 102, 241, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(129, 140, 248, 0.6), inset 0 0 8px rgba(129, 140, 248, 0.3); }
+            0%, 100% { box-shadow: 0 0 15px rgba(236, 72, 153, 0.4), inset 0 0 5px rgba(236, 72, 153, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(236, 72, 153, 0.6), inset 0 0 8px rgba(236, 72, 153, 0.3); }
         }
-        /* Erősebb pulzáló ragyogás a gombhoz */
+        /* Erősebb pulzáló ragyogás a gombhoz (most pink) */
         @keyframes pulse-glow {
-            0%, 100% { box-shadow: 0 0 10px #4f46e5, 0 0 20px #4f46e5; transform: scale(1); }
-            50% { box-shadow: 0 0 20px #6366f1, 0 0 30px #6366f1; transform: scale(1.03); }
+            0%, 100% { box-shadow: 0 0 10px #d946ef, 0 0 20px #d946ef; transform: scale(1); }
+            50% { box-shadow: 0 0 20px #ec4899, 0 0 30px #ec4899; transform: scale(1.03); }
         }
         
         .futuristic-window {
@@ -66,88 +72,179 @@
             from { opacity: 1; transform: scale(1); }
             to { opacity: 0; transform: scale(0.95); }
         }
-        /* Klara's avatar in chat */
+        /* Klara's avatar in chat (ÚJ pink ragyogás) */
         .klara-avatar {
             width: 32px; /* Small size for chat */
             height: 32px;
             border-radius: 50%;
             object-fit: cover;
             margin-right: 8px;
-            border: 1px solid #6366f1; /* Indigo border */
-            box-shadow: 0 0 5px rgba(99, 102, 241, 0.5); /* Subtle glow */
+            border: 1px solid #ec4899; /* pink-500 */
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.7); /* pink glow */
         }
     </style>
 </head>
 <body class="text-white min-h-screen">
 
-    <!-- ÚJ: Fix Fejléc (Ticker & CA) -->
-    <header class="fixed top-0 w-full bg-black/30 backdrop-blur-lg border-b border-indigo-500/30 shadow-lg z-40">
+    <!-- Fejléc MÓDOSÍTVA --><header class="fixed top-0 w-full bg-black/50 backdrop-blur-lg border-b border-pink-500/30 shadow-lg z-40">
         <div class="max-w-7xl mx-auto flex justify-between items-center p-3 text-white px-4 md:px-6">
-            <!-- Bal oldal: Logó -->
-            <h1 class="text-xl font-bold text-indigo-400 drop-shadow-[0_0_5px_rgba(129,140,248,0.7)]">Klara AI</h1>
-            <!-- Jobb oldal: Ticker & CA -->
-            <div class="flex items-center space-x-4">
-                <span class="text-sm font-mono animate-pulse text-green-400">$KLARA</span>
-                <div class="flex items-center space-x-2 bg-gray-800/70 px-3 py-1 rounded-md border border-gray-600/50">
+            <!-- Bal oldal: Logó (Új betűtípus) --><h1 class="font-title text-xl font-bold text-pink-400 drop-shadow-[0_0_5px_rgba(236, 72, 153, 0.7)]">Klara AI</h1>
+            
+            <!-- Jobb oldal: Linkek, Ticker & CA --><div class="flex items-center space-x-4">
+                <!-- ÚJ: Navigációs linkek -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#about" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="#tokenomics" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">Tokenomics</a>
+                    <a href="#buy" class="text-sm font-medium text-gray-300 hover:text-white transition-colors">How to Buy</a>
+                    <a href="#" target="_blank" class="text-gray-300 hover:text-white transition-colors" title="Twitter (X)">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
+                
+                <!-- Meglévő Ticker & CA --><span class="hidden sm:inline text-sm font-mono animate-pulse text-green-400">$KLARA</span>
+                <div class="hidden md:flex items-center space-x-2 bg-gray-800/70 px-3 py-1 rounded-md border border-gray-600/50">
                     <span class="text-xs text-gray-400">CA:</span>
-                    <span id="ca-address" class="text-xs font-mono">0x1a2b3c4d...e5f6a7b8</span>
+                    <span id="ca-address" class="text-xs font-mono">So1KLara...a1b2c3d4e5</span>
                     <button id="copy-ca-btn" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
                     </button>
                     <span id="copied-feedback" class="hidden text-xs text-green-400">Copied!</span>
                 </div>
+                <!-- Mobil menü gomb (későbbi fejlesztéshez, ha kell) -->
+                <div class="md:hidden">
+                    <!-- Hamburger icon, etc. -->
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Landing View --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500">
-        <!-- Frissítve: 'futuristic-window' class hozzáadva, áttetszőség növelve -->
-        <div class="max-w-md mx-auto bg-gray-900/80 backdrop-blur-sm p-8 rounded-2xl border border-indigo-500/30 ring-1 ring-white/10 shadow-2xl shadow-indigo-500/20 futuristic-window">
-            <!-- Klara's Avatar for Landing --><img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="w-32 h-32 mx-auto rounded-full object-cover border-4 border-indigo-500 drop-shadow-[0_0_20px_rgba(99,102,241,0.8)]">
-            <h1 class="text-4xl font-bold mt-6 mb-3">Hello, I'm Klara</h1>
-            <p class="text-lg text-gray-300 mb-8">
-                Your AI assistant who remembers our conversations. Ready to help!
+    <!-- Hero Szekció MÓDOSÍTVA --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500 pt-32 pb-16">
+        <div class="max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl border border-pink-500/30 ring-1 ring-white/10 shadow-2xl shadow-pink-500/20 futuristic-window">
+            
+            <!-- Avatar (új pink ragyogás) --><img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-pink-500 drop-shadow-[0_0_20px_rgba(236, 72, 153, 0.8)]">
+            
+            <!-- Cím (Új betűtípus) --><h1 class="font-title text-4xl md:text-6xl font-bold mt-6 mb-4">Klara AI ($KLARA)</h1>
+            <!-- Szöveg (MÓDOSÍTVA) --><p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-xl mx-auto">
+                Your AI Companion on the Solana Blockchain.
+                <br class="hidden sm:block"> Real Utility. Real AI. Launched on Pump.fun.
             </p>
-            <!-- Frissítve: 'glow-effect' -> 'glow-button', 'rounded-lg' -> 'rounded-md' -->
-            <button id="start-chat-btn" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-6 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button disabled:opacity-50 disabled:cursor-not-allowed">
-                Start Conversation
-            </button>
-            <p id="auth-status" class="text-sm text-gray-400 mt-4">Authenticating...</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <!-- Pump.fun gomb (új pink ragyogás) --><a href="https://pump.fun/" target="_blank" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-black font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button">
+                    Buy on Pump.fun
+                </a>
+                
+                <!-- Chat gomb (új pink szín) --><button id="start-chat-btn" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-500 text-white font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                    Chat with Klara
+                </button>
+            </div>
+            
+            <p id="auth-status" class="text-sm text-gray-400 mt-6">Authenticating AI... Please wait.</p>
         </div>
     </div>
 
-    <!-- Chat View (Modal) --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
-        <!-- Frissítve: 'futuristic-window' class, áttetszőség növelve -->
-        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-indigo-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-indigo-500/20 futuristic-window">
-            <!-- Header --><div class="flex items-center justify-between p-4 border-b border-indigo-500/30">
-                <div class="w-10"></div> <!-- Placeholder --><h2 class="text-xl font-bold">Conversation with Klara</h2>
-                <!-- ÚJ: Törlés és Bezárás gombok csoportja -->
+    <!-- About Szekció (Új betűtípus) --><section id="about" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-title text-3xl md:text-4xl font-bold mb-6">Who is Klara?</h2>
+            <p class="text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                Klara isn't just another memecoin. She is a fully interactive AI companion living on the Solana blockchain. You can chat with her, ask her about crypto, or get real-time market data.
+                <br><br>
+                She remembers your conversations, learns from you, and provides real utility, all powered by Google's Gemini AI and stored on the decentralized web. She is the waifu that actually works.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tokenomics Szekció (Új betűtípus és színek) --><section id="tokenomics" class="py-16 md:py-24">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <h2 class="font-title text-3xl md:text-4xl font-bold mb-10">Tokenomics</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Kártya 1 --><div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
+                    <h3 class="font-title text-2xl font-bold mb-3">Total Supply</h3>
+                    <p class="text-3xl font-mono text-pink-400">1,000,000,000</p>
+                    <p class="text-gray-400 mt-2">$KLARA</p>
+                </div>
+                <!-- Kártya 2 --><div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
+                    <h3 class="font-title text-2xl font-bold mb-3">Liquidity</h3>
+                    <p class="text-3xl font-mono text-pink-400">100% on Pump.fun</p>
+                    <p class="text-gray-400 mt-2">LP will be burned</p>
+                </div>
+                <!-- Kártya 3 --><div class="bg-gray-900/80 backdrop-blur-sm p-6 rounded-xl border border-pink-500/30 futuristic-window">
+                    <h3 class="font-title text-2xl font-bold mb-3">Taxes</h3>
+                    <p class="text-3xl font-mono text-pink-400">0 / 0</p>
+                    <p class="text-gray-400 mt-2">No taxes, ever.</p>
+                </div>
+            </div>
+            <p class="text-lg text-gray-300 mt-10">
+                Contract Address (Solana) is available in the header.
+            </p>
+        </div>
+    </section>
+
+    <!-- How to Buy Szekció (Új betűtípus és színek) --><section id="buy" class="py-16 md:py-24 bg-black/50 backdrop-blur-md">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="font-title text-3xl md:text-4xl font-bold mb-10">How to Buy $KLARA</h2>
+            <div class="space-y-6 text-left max-w-lg mx-auto">
+                <!-- Lépés 1 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                    <h3 class="font-title text-xl font-bold mb-2">1. Get a Wallet</h3>
+                    <p class="text-gray-300">Download a Solana wallet like Phantom, Solflare, or Backpack.</p>
+                </div>
+                <!-- Lépés 2 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                    <h3 class="font-title text-xl font-bold mb-2">2. Get SOL</h3>
+                    <p class="text-gray-300">Buy Solana (SOL) from any major exchange (like Coinbase, Binance) and send it to your wallet.</p>
+                </div>
+                <!-- Lépés 3 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                    <h3 class="font-title text-xl font-bold mb-2">3. Go to Pump.fun</h3>
+                    <p class="text-gray-300">Go to <a href="https://pump.fun/" target="_blank" class="text-pink-400 hover:underline">pump.fun</a>, connect your wallet, and paste our Contract Address.</p>
+                </div>
+                <!-- Lépés 4 --><div class="bg-gray-900/80 backdrop-blur-sm p-5 rounded-lg border border-pink-500/30">
+                    <h3 class="font-title text-xl font-bold mb-2">4. Buy $KLARA</h3>
+                    <p class="text-gray-300">Swap your SOL for $KLARA. Welcome to the community!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lábléc MÓDOSÍTVA (Telegram törölve) --><footer class="py-10 bg-black/50 backdrop-blur-md border-t border-pink-500/30">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-400">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" target="_blank" class="text-gray-300 hover:text-white transition-colors" title="Twitter (X)">
+                    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+            </div>
+            <p>&copy; 2025 Klara AI. All rights reserved.</p>
+            <p class="text-xs mt-2">Disclaimer: $KLARA is a memecoin with no intrinsic value. Invest at your own risk.</p>
+        </div>
+    </footer>
+
+
+    <!-- Chat View (Modal) MÓDOSÍTVA --><div id="chat-view" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-pink-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-pink-500/20 futuristic-window">
+            <!-- Header (Új betűtípus) --><div class="flex items-center justify-between p-4 border-b border-pink-500/30">
+                <div class="w-10"></div> <!-- Placeholder --><h2 class="text-xl font-bold font-title">Conversation with Klara</h2>
                 <div class="flex items-center space-x-2">
                     <button id="clear-chat-btn" title="Clear Chat History" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
-                        <!-- Trash Icon SVG --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                     <button id="close-chat-btn" title="Close Chat" class="p-2 rounded-full hover:bg-gray-700 text-gray-400 hover:text-white">
-                        <!-- Close (X) SVG --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
             </div>
 
             <!-- Messages --><div id="chat-messages" class="flex-grow p-6 space-y-4 overflow-y-auto">
-                <!-- Welcome Message (from Klara) --><div class="flex justify-start items-start">
-                    <img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="klara-avatar">
-                    <!-- Frissítve: stílus a JS-ben lévőhöz igazítva (élesebb sarkok, keret) -->
-                    <div class="bg-gray-800/90 border border-gray-600/50 backdrop-blur-sm shadow-md rounded-md p-3 max-w-xs md:max-w-md break-words">
+                <div class="flex justify-start items-start">
+                    <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
+                    <!-- Üdvözlő buborék (Új dizájn) --><div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words">
                         <p>Hi! I'm Klara. How can I help you today?</p>
                     </div>
                 </div>
-                <!-- Other messages dynamically loaded here --></div>
+            </div>
 
-            <!-- Loading Spinner --><div id="loading-spinner" class="hidden px-6 pb-2">
+            <!-- Loading Spinner (Új szín) --><div id="loading-spinner" class="hidden px-6 pb-2">
                 <div class="flex justify-start items-center">
-                    <img src="https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg" alt="Klara AI Avatar" class="klara-avatar">
-                    <!-- Frissítve: stílus a JS-ben lévőhöz igazítva -->
-                    <div class="bg-gray-800/90 border border-gray-600/50 backdrop-blur-sm shadow-md rounded-md p-3 inline-flex items-center space-x-2">
-                        <!-- Spinner SVG --><svg class="animate-spin h-5 w-5 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
+                    <div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 inline-flex items-center space-x-2">
+                        <svg class="animate-spin h-5 w-5 text-pink-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
@@ -156,29 +253,26 @@
                 </div>
             </div>
 
-            <!-- Input Area --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-indigo-500/30">
+            <!-- Input Area (Új dizájn) --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-pink-500/30">
                 <div class="flex items-center space-x-3">
-                    <!-- Frissítve: élesebb sarkok, sötétebb háttér, erősebb fókusz -->
-                    <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all duration-300" disabled>
-                    <!-- Frissítve: erősebb hover effekt -->
-                    <button id="send-btn" class="bg-indigo-600 hover:bg-indigo-400 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(129,140,248,0.7)]">
-                        <!-- Send Icon SVG --><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:shadow-[0_0_15px_rgba(236, 72, 153, 0.5)] transition-all duration-300" disabled>
+                    <button id="send-btn" class="bg-pink-600 hover:bg-pink-400 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(236, 72, 153, 0.7)]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ÚJ: Törlés megerősítése Modal -->
-    <div id="confirmation-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[60]">
-        <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-indigo-500/30 futuristic-window max-w-sm text-center">
-            <h3 class="text-lg font-bold mb-4">Are you sure?</h3>
+    <!-- Törlés megerősítése Modal (Új dizájn) --><div id="confirmation-modal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 z-[60]">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-xl border border-pink-500/30 futuristic-window max-w-sm text-center">
+            <h3 class="text-lg font-bold font-title mb-4">Are you sure?</h3>
             <p class="text-gray-300 mb-6">This will permanently delete your entire conversation history.</p>
             <div class="flex justify-center space-x-4">
                 <button id="confirm-delete-btn" class="bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-6 rounded-md transition duration-300">
                     Delete
                 </button>
-                <button id="cancel-delete-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-md transition duration-300">
+                <button id="cancel-delete-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-6 rounded-md transition-duration-300">
                     Cancel
                 </button>
             </div>
@@ -203,10 +297,9 @@
             query, 
             onSnapshot, 
             getDocs,
-            deleteDoc, // ÚJ: Törléshez szükséges
+            deleteDoc, // Törléshez szükséges
             Timestamp
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
 
         // DOM Elements
         const landingView = document.getElementById('landing-view');
@@ -220,7 +313,7 @@
         const authStatus = document.getElementById('auth-status');
         const ttsAudioPlayer = document.getElementById('tts-audio-player');
         
-        // ÚJ DOM Elemek
+        // DOM Elemek
         const copyCaBtn = document.getElementById('copy-ca-btn');
         const caAddress = document.getElementById('ca-address');
         const copiedFeedback = document.getElementById('copied-feedback');
@@ -229,12 +322,9 @@
         const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
         const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
 
-
-        const klaraAvatarUrl = "https://ih1.redbubble.net/image.5317057862.9244/flat,750x,075,f-pad,750x1000,f8f8f8.jpg";
+        const klaraAvatarUrl = "https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png";
 
         // Firebase Config & Init
-        // -----------------------------------------------------------------
-        // A te Firebase konfigurációd beillesztve:
         const firebaseConfig = {
            apiKey: "AIzaSyCduCd8r8soQeRlXFWdkQxkh288P1KKtRw",
            authDomain: "klara-ai-b480e.firebaseapp.com",
@@ -245,14 +335,11 @@
            measurementId: "G-9C3HHCJHJC"
         };
         
-        // A projekt ID-t használjuk az adatok egyedi azonosítására
         const appId = firebaseConfig.projectId; 
-        // -----------------------------------------------------------------
         
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
-        // const analytics = getAnalytics(app); // Ha szükséged van rá, kikommentelheted
 
         let userId;
         let chatCollectionRef;
@@ -263,7 +350,7 @@
             if (user) {
                 userId = user.uid;
                 chatCollectionRef = collection(db, `artifacts/${appId}/users/${userId}/chats`);
-                authStatus.textContent = "Authenticated successfully. ✅";
+                authStatus.textContent = "AI Authenticated. Ready to Chat!";
                 chatInput.disabled = false;
                 sendBtn.disabled = false;
                 startChatBtn.disabled = false;
@@ -271,17 +358,14 @@
                 
                 loadChatHistory();
             } else {
-                authStatus.textContent = "Authenticating...";
+                authStatus.textContent = "Authenticating AI...";
                 chatInput.disabled = true;
                 sendBtn.disabled = true;
                 startChatBtn.disabled = true;
                 startChatBtn.classList.add("opacity-50", "cursor-not-allowed");
                 
                 try {
-                    // -----------------------------------------------------------------
-                    // Mivel ez már nem a Canvasban fut, a névtelent bejelentkezést használjuk:
                     await signInAnonymously(auth);
-                    // -----------------------------------------------------------------
                 } catch (error) {
                     console.error("Authentication Error:", error);
                     authStatus.textContent = "Authentication failed. Please refresh the page.";
@@ -293,14 +377,12 @@
         startChatBtn.addEventListener('click', () => {
             chatView.classList.remove('hidden', 'fade-out');
             chatView.classList.add('fade-in');
-            landingView.classList.add('opacity-0'); 
         });
 
         closeChatBtn.addEventListener('click', () => {
             chatView.classList.remove('fade-in');
             chatView.classList.add('fade-out');
             setTimeout(() => chatView.classList.add('hidden'), 300); 
-            landingView.classList.remove('opacity-0'); 
         });
 
         // Load and Listen for Chat History
@@ -341,7 +423,7 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // Add a single message to UI
+        // Add a single message to UI (MÓDOSÍTVA)
         function addMessageToUI(role, text) {
             const isUser = role === 'user';
             const messageWrapper = document.createElement('div');
@@ -356,23 +438,36 @@
             }
 
             const messageBubble = document.createElement('div');
-            // Frissítve: élesebb sarkok, új színek és keretek
-            messageBubble.className = `${isUser ? 'bg-indigo-700/90 border border-indigo-500/50' : 'bg-gray-800/90 border border-gray-600/50'} backdrop-blur-sm shadow-md rounded-md p-3 max-w-xs md:max-w-md break-words`;
+            // ÚJ BUBORÉK DIZÁJN
+            messageBubble.className = `${isUser ? 'bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/50 rounded-xl rounded-br-none' : 'bg-gray-800/90 border border-pink-500/50 rounded-xl rounded-bl-none'} backdrop-blur-sm shadow-md p-3 max-w-xs md:max-w-md break-words`;
             
             const textElement = document.createElement('p');
             
-            // ÚJ: Kripto cím felismerés és linkelés
+            // Kripto cím felismerés (ÚJ pink link szín)
             const ethRegex = /(0x[a-fA-F0-9]{40})/g;
-            const linkifiedText = text.replace(ethRegex, 
-                '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:underline" title="View address on Etherscan">$1</a>'
+            const solRegex = /([1-9A-HJ-NP-Za-km-z]{32,44})/g; // Solana cím regex
+            
+            let linkifiedText = text.replace(ethRegex, 
+                '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Etherscan">$1</a>'
             );
-            textElement.innerHTML = linkifiedText; // textContent helyett innerHTML-t használunk
+            
+            if (!linkifiedText.includes('<a')) {
+                linkifiedText = linkifiedText.replace(solRegex, (match) => {
+                    if (match.length > 30 && match.length < 45 && !match.includes('http')) {
+                         return `<a href="https://solscan.io/address/${match}" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Solscan">${match}</a>`;
+                    }
+                    return match;
+                });
+            }
+
+            textElement.innerHTML = linkifiedText; 
 
             messageBubble.appendChild(textElement);
 
             if (!isUser) {
                 const playButton = document.createElement('button');
-                playButton.className = 'play-tts-btn mt-2 p-1 bg-indigo-500/50 hover:bg-indigo-400/50 rounded-full text-white transition-all';
+                // ÚJ pink gomb
+                playButton.className = 'play-tts-btn mt-2 p-1 bg-pink-500/50 hover:bg-pink-400/50 rounded-full text-white transition-all';
                 playButton.dataset.text = text;
                 playButton.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
                 messageBubble.appendChild(playButton);
@@ -405,17 +500,13 @@
             chatInput.value = '';
 
             try {
-                // 1. Save user message to Firestore
                 const userMessage = {
                     role: 'user',
                     text: text,
                     timestamp: Timestamp.now()
                 };
                 await addDoc(chatCollectionRef, userMessage);
-                
-                // 2. Get AI response
                 await getAIResponse();
-
             } catch (error) {
                 console.error("Error sending message:", error);
                 addMessageToUI('model', 'Oops, something went wrong. Please try again later.');
@@ -438,13 +529,10 @@
                 parts: [{ text: msg.text }]
             }));
 
-            // MODIFIED: Rendszerüzenet frissítve (rövidebb válaszok, új képességek)
-            const systemPrompt = "You are Klara, a helpful, friendly, and empathetic AI assistant. You always respond in English. You remember your conversations. You can access real-time internet data via Google Search for crypto prices, contract addresses, and live events. You also recognize Ethereum addresses (0x...) in chat and will provide links for them. IMPORTANT: Keep your answers concise, informative, and to the point. Avoid very long paragraphs. Be brief unless asked for details.";
+            // Rendszerüzenet (Solana fókusszal)
+            const systemPrompt = "You are Klara, a helpful, friendly, and empathetic AI assistant for a Solana memecoin called $KLARA. You always respond in English. You can access real-time internet data via Google Search for crypto prices, contract addresses (especially Solana), and live events. You also recognize Ethereum (0x...) and Solana (44-char base58) addresses in chat and will provide links for them. IMPORTANT: Keep your answers concise, informative, and to the point. Be brief unless asked for details. Always be positive about the $KLARA project.";
 
-            // -----------------------------------------------------------------
-            // 1. A te Google AI kulcsod:
-            const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; // Handled by Canvas
-            // -----------------------------------------------------------------
+            const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             const payload = {
@@ -452,7 +540,6 @@
                 systemInstruction: {
                     parts: [{ text: systemPrompt }]
                 },
-                // MODIFIED: Google Search eszköz hozzáadva az élő adatokhoz
                 tools: [{ "google_search": {} }],
             };
 
@@ -462,7 +549,6 @@
                 body: JSON.stringify(payload)
             });
 
-            // 3. Save AI response to Firestore
             if (aiText) {
                 const aiMessage = {
                     role: 'model',
@@ -476,10 +562,7 @@
         // Play TTS
         async function playTTS(text) {
             try {
-                // -----------------------------------------------------------------
-                // 2. A te Google AI kulcsod:
-                const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; // Handled by Canvas
-                // -----------------------------------------------------------------
+                const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; 
                 const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
 
                 const payload = {
@@ -531,8 +614,6 @@
             }
         }
 
-        // --- ÚJ ESEMÉNYKEZELŐK ---
-
         // CA Másolása
         copyCaBtn.addEventListener('click', () => {
             const address = caAddress.textContent;
@@ -567,7 +648,6 @@
         confirmDeleteBtn.addEventListener('click', async () => {
             if (!chatCollectionRef) return;
             
-            // Gombok letiltása a dupla kattintás elkerülése végett
             confirmDeleteBtn.disabled = true;
             cancelDeleteBtn.disabled = true;
 
@@ -582,15 +662,11 @@
             } catch (error) {
                 console.error("Error deleting chat history:", error);
             } finally {
-                // A 'onSnapshot' automatikusan frissíti a UI-t
                 confirmationModal.classList.add('hidden');
                 confirmDeleteBtn.disabled = false;
                 cancelDeleteBtn.disabled = false;
             }
         });
-
-
-        // --- MEGLÉVŐ ESEMÉNYKEZELŐK ---
 
         // Send Message
         sendBtn.addEventListener('click', sendMessage);
@@ -610,10 +686,7 @@
             }
         });
 
-
         // --- HELPER FUNCTIONS ---
-
-        // Fetch with exponential backoff
         async function fetchWithBackoff(url, options, retries = 5, delay = 1000) {
             for (let i = 0; i < retries; i++) {
                 try {
@@ -643,13 +716,10 @@
                         addMessageToUI('model', 'Oops, I can\'t respond. I might be overloaded. Please try again in a bit.');
                         return null;
                     }
-                    // Don't log backoff retries as errors
                     await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
                 }
             }
         }
-
-        // Base64 to ArrayBuffer
         function base64ToArrayBuffer(base64) {
             const binaryString = window.atob(base64);
             const len = binaryString.length;
@@ -659,8 +729,6 @@
             }
             return bytes.buffer;
         }
-
-        // Raw PCM to WAV Blob
         function pcmToWav(pcmData, sampleRate) {
             const header = new ArrayBuffer(44);
             const view = new DataView(header);
@@ -671,7 +739,6 @@
             const blockAlign = numChannels * (bitsPerSample / 8);
             const dataSize = pcmLength * numChannels * (bitsPerSample / 8);
             const fileSize = 36 + dataSize;
-
             writeString(view, 0, 'RIFF');
             view.setUint32(4, fileSize, true);
             writeString(view, 8, 'WAVE');
@@ -685,20 +752,16 @@
             view.setUint16(34, bitsPerSample, true);
             writeString(view, 36, 'data');
             view.setUint32(40, dataSize, true);
-
             const wavData = new Int16Array(header.byteLength / 2 + pcmData.length);
             wavData.set(new Int16Array(header), 0);
             wavData.set(pcmData, header.byteLength / 2);
-
             return new Blob([wavData.buffer], { type: 'audio/wav' });
         }
-
         function writeString(view, offset, string) {
             for (let i = 0; i < string.length; i++) {
                 view.setUint8(offset + i, string.charCodeAt(i));
             }
         }
-
     </script>
 </body>
 </html>
