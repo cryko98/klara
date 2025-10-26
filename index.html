@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klara AI ($KLARA) - AI Memecoin on Solana</title>
-    <script src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png"></script>
+    <link rel="icon" type="image/png" href="https://e7.pngegg.com/pngimages/370/87/png-clipart-myanimelist-manga-video-anime-cg-artwork-face.png">
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     <!-- Betűtípusok: Orbitron (címek) és Poppins (szöveg) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,11 +92,53 @@
             border: 1px solid #ec4899; /* pink-500 */
             box-shadow: 0 0 10px rgba(236, 72, 153, 0.7); /* pink glow */
         }
+        
+        /* Stílus az elemzési kártyához */
+        .analysis-card {
+            background-color: rgba(15, 23, 42, 0.8); /* slate-900/80 */
+            border: 1px solid #ec4899; /* pink-500 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 1rem; /* p-4 */
+            margin-top: 0.5rem; /* mt-2 */
+            max-width: 95%;
+        }
+        .analysis-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #f472b6; /* pink-400 */
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 700;
+            border-bottom: 1px solid #ec4899;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .analysis-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: #f9a8d4; /* pink-300 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 600;
+            margin-top: 0.75rem;
+        }
+        .analysis-card p {
+            font-size: 0.875rem; /* text-sm */
+            color: #d1d5db; /* gray-300 */
+            margin-bottom: 0.5rem;
+        }
+        .analysis-card .data-not-found {
+            color: #9ca3af; /* gray-400 */
+            font-style: italic;
+        }
+        /* Stílus a disclamerhez a kártya alján */
+        .analysis-card .disclaimer {
+            font-size: 0.75rem; /* text-xs */
+            text-align: center;
+            margin-top: 1rem;
+            color: #9ca3af; /* gray-400 */
+        }
     </style>
 </head>
 <body class="text-white min-h-screen">
 
-    <!-- Fejléc MÓDOSÍTVA --><header class="fixed top-0 w-full bg-black/50 backdrop-blur-lg border-b border-pink-500/30 shadow-lg z-40">
+    <!-- Fejléc --><header class="fixed top-0 w-full bg-black/50 backdrop-blur-lg border-b border-pink-500/30 shadow-lg z-40">
         <div class="max-w-7xl mx-auto flex justify-between items-center p-3 text-white px-4 md:px-6">
             <!-- Bal oldal: Logó --><h1 class="font-title text-xl font-bold text-pink-400 drop-shadow-[0_0_5px_rgba(236, 72, 153, 0.7)]">Klara AI</h1>
             
@@ -113,7 +155,8 @@
                 <!-- Ticker & CA (Desktop) --><span class="hidden sm:inline text-sm font-mono animate-pulse text-green-400">$KLARA</span>
                 <div class="hidden md:flex items-center space-x-2 bg-gray-800/70 px-3 py-1 rounded-md border border-gray-600/50">
                     <span class="text-xs text-gray-400">CA:</span>
-                    <span id="ca-address-desktop" class="text-xs font-mono">So1KLara...a1b2c3d4e5</span>
+                    <!-- IDE ÍRD ÁT A VALÓDI CA-t -->
+                    <span id="ca-address-desktop" class="text-xs font-mono">So1KLara...a1b2c3d4e5</span> 
                     <button id="copy-ca-btn-desktop" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
                     </button>
@@ -129,7 +172,7 @@
         </div>
     </header>
 
-    <!-- ÚJ: Mobil Menü (Rejtett alapból) --><div id="mobile-menu" class="hidden fixed inset-0 bg-gray-900/95 backdrop-blur-md z-50 p-6 fade-in">
+    <!-- Mobil Menü (Rejtett alapból) --><div id="mobile-menu" class="hidden fixed inset-0 bg-gray-900/95 backdrop-blur-md z-50 p-6 fade-in">
         <div class="flex justify-between items-center mb-10">
             <h1 class="font-title text-xl font-bold text-pink-400">Klara AI</h1>
             <button id="close-mobile-menu-btn" class="p-2 text-gray-300 hover:text-white">
@@ -150,7 +193,7 @@
                 <span class="inline-block text-lg font-mono animate-pulse text-green-400">$KLARA</span>
                 <div class="flex items-center justify-center space-x-2 bg-gray-800/70 px-3 py-2 rounded-md border border-gray-600/50 mt-4">
                     <span class="text-sm text-gray-400">CA:</span>
-                    <span id="ca-address-mobile" class="text-sm font-mono">So1KLara...a1b2c3d4e5</span>
+                    <!-- Ezt a JS automatikusan kitölti --><span id="ca-address-mobile" class="text-sm font-mono"></span> 
                     <button id="copy-ca-btn-mobile" title="Copy Address" class="text-gray-400 hover:text-white transition-colors">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM5 11a1 1 0 000 2h4a1 1 0 100-2H5z"></path><path fill-rule="evenodd" d="M3 5a3 3 0 013-3h10a3 3 0 013 3v10a3 3 0 01-3 3H6a3 3 0 01-3-3V5zm3-1a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1V5a1 1 0 00-1-1H6z" clip-rule="evenodd"></path></svg>
                     </button>
@@ -161,7 +204,7 @@
     </div>
 
 
-    <!-- Hero Szekció MÓDOSÍTVA (Új gomb) --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500 pt-32 pb-16">
+    <!-- Hero Szekció --><div id="landing-view" class="min-h-screen flex items-center justify-center text-center p-8 transition-opacity duration-500 pt-32 pb-16">
         <div class="max-w-3xl mx-auto bg-gray-900/80 backdrop-blur-sm p-8 md:p-12 rounded-2xl border border-pink-500/30 ring-1 ring-white/10 shadow-2xl shadow-pink-500/20 futuristic-window">
             
             <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="w-32 h-32 md:w-40 md:h-40 mx-auto rounded-full object-cover border-4 border-pink-500 drop-shadow-[0_0_20px_rgba(236, 72, 153, 0.8)]">
@@ -172,6 +215,7 @@
                 <br class="hidden sm:block"> Real Utility. Real AI. Launched on Pump.fun.
             </p>
             
+            <!-- Gombok: 2 gombos elrendezés -->
             <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <a href="https://pump.fun/" target="_blank" class="w-full sm:w-auto bg-green-500 hover:bg-green-400 text-black font-bold py-3 px-8 rounded-md transition duration-300 transform hover:scale-105 shadow-lg glow-button">
                     Buy on Pump.fun
@@ -182,7 +226,7 @@
                 </button>
             </div>
             
-            <!-- ÚJ: Whitepaper Gomb --><button id="whitepaper-btn" class="mt-6 text-pink-300 hover:text-white font-medium py-2 px-4 rounded-md transition duration-300">
+            <!-- Whitepaper Gomb --><button id="whitepaper-btn" class="mt-6 text-pink-300 hover:text-white font-medium py-2 px-4 rounded-md transition duration-300">
                 Read Whitepaper
             </button>
             
@@ -282,7 +326,8 @@
                 <div class="flex justify-start items-start">
                     <img src="https://pngimg.com/uploads/anime_girl/anime_girl_PNG41.png" alt="Klara AI Avatar" class="klara-avatar">
                     <div class="bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words">
-                        <p>Hi! I'm Klara. How can I help you today?</p>
+                        <!-- MÓDOSÍTOTT ÜDVÖZLŐ ÜZENET -->
+                        <p>Hi! I'm Klara. How can I help you today? I can understand and respond in multiple languages!</p>
                     </div>
                 </div>
             </div>
@@ -299,8 +344,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-pink-500/30">
+            
+            <!-- Input Area --><div class="p-4 bg-gray-900/70 backdrop-blur-sm border-t border-pink-500/30">
                 <div class="flex items-center space-x-3">
                     <input id="chat-input" type="text" placeholder="Write a message to Klara..." class="flex-grow bg-gray-900/90 border border-gray-700 rounded-md py-3 px-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:shadow-[0_0_15px_rgba(236, 72, 153, 0.5)] transition-all duration-300" disabled>
                     <button id="send-btn" class="bg-pink-600 hover:bg-pink-400 text-white p-3 rounded-full transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-110 hover:shadow-[0_0_20px_rgba(236, 72, 153, 0.7)]">
@@ -326,7 +371,7 @@
         </div>
     </div>
 
-    <!-- ÚJ: Whitepaper Modal --><div id="whitepaper-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
+    <!-- Whitepaper Modal --><div id="whitepaper-modal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 z-50">
         <div class="w-full max-w-3xl h-[90vh] flex flex-col bg-gray-900/90 backdrop-blur-sm border border-pink-500/30 ring-1 ring-white/10 rounded-2xl shadow-2xl shadow-pink-500/20 futuristic-window">
             <!-- Whitepaper Header -->
             <div class="flex items-center justify-between p-4 border-b border-pink-500/30">
@@ -348,6 +393,8 @@
                     <li><strong>Memory (Firebase):</strong> Klara remembers your conversations. Our integration with Firestore database allows for a persistent, personalized chat history for every user.</li>
                     <li><strong>Voice (TTS):</strong> Klara can speak. Using Google's Text-to-Speech API, users can listen to her responses, creating a more immersive experience.</li>
                     <li><strong>Blockchain (Solana):</strong> Built on Solana for hyper-fast, low-cost transactions, ensuring the $KLARA token is accessible to everyone.</li>
+                    <!-- ÚJ: DexScreener API -->
+                    <li><strong>Real-Time Data (DexScreener API):</strong> Klara's analysis engine is connected directly to the DexScreener.com API, allowing her to pull real-time market cap, volume, and buy/sell data for tokens on multiple chains.</li>
                 </ul>
 
                 <h3 class="font-title text-2xl font-bold text-pink-400">3. Tokenomics</h3>
@@ -370,6 +417,7 @@
                             <li>Functional AI Chat (Memory & Search)</li>
                             <li>Website & Whitepaper V1</li>
                             <li>Community building on X (Twitter)</li>
+                            <li>DexScreener API Integration</li>
                             <li>Reach Raydium</li>
                         </ul>
                     </div>
@@ -378,7 +426,6 @@
                         <ul class="list-disc list-inside pl-4 text-gray-400">
                             <li>Listings on CoinGecko & CoinMarketCap</li>
                             <li>Jupiter Listing</li>
-                            <li>Real-time price ticker integration</li>
                             <li>AI Image Generation (coming soon)</li>
                         </ul>
                     </div>
@@ -446,12 +493,12 @@
         const confirmDeleteBtn = document.getElementById('confirm-delete-btn');
         const cancelDeleteBtn = document.getElementById('cancel-delete-btn');
 
-        // ÚJ: Whitepaper Gombok
+        // Whitepaper Gombok
         const whitepaperBtn = document.getElementById('whitepaper-btn');
         const whitepaperModal = document.getElementById('whitepaper-modal');
         const closeWhitepaperBtn = document.getElementById('close-whitepaper-btn');
 
-        // ÚJ: Mobil Menü Gombok
+        // Mobil Menü Gombok
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const closeMobileMenuBtn = document.getElementById('close-mobile-menu-btn');
@@ -479,6 +526,14 @@
         let userId;
         let chatCollectionRef;
         let unsubscribeChat = null;
+        let contractAddressValue = ""; 
+
+        function updateContractAddressDisplay() {
+            contractAddressValue = caAddressDesktop.textContent.trim(); 
+            if (caAddressMobile) {
+                caAddressMobile.textContent = contractAddressValue; 
+            }
+        }
 
         // Auth State Handler
         onAuthStateChanged(auth, async (user) => {
@@ -490,7 +545,6 @@
                 sendBtn.disabled = false;
                 startChatBtn.disabled = false;
                 startChatBtn.classList.remove("opacity-50", "cursor-not-allowed");
-                
                 loadChatHistory();
             } else {
                 authStatus.textContent = "Authenticating AI...";
@@ -498,7 +552,6 @@
                 sendBtn.disabled = true;
                 startChatBtn.disabled = true;
                 startChatBtn.classList.add("opacity-50", "cursor-not-allowed");
-                
                 try {
                     await signInAnonymously(auth);
                 } catch (error) {
@@ -508,21 +561,17 @@
             }
         });
 
-        // --- ÚJ Event Listenerek (Mobil Menü & Whitepaper) ---
-
-        // Mobil Menü
+        // --- Event Listenerek ---
         mobileMenuBtn.addEventListener('click', () => {
+            updateContractAddressDisplay(); 
             mobileMenu.classList.remove('hidden', 'fade-out');
             mobileMenu.classList.add('fade-in');
         });
-
         closeMobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('fade-in');
             mobileMenu.classList.add('fade-out');
             setTimeout(() => mobileMenu.classList.add('hidden'), 300);
         });
-
-        // Linkek bezárják a menüt kattintáskor
         mobileMenuLinks.forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.remove('fade-in');
@@ -530,56 +579,37 @@
                 setTimeout(() => mobileMenu.classList.add('hidden'), 300);
             });
         });
-
-        // Whitepaper Modal
         whitepaperBtn.addEventListener('click', () => {
             whitepaperModal.classList.remove('hidden', 'fade-out');
             whitepaperModal.classList.add('fade-in');
         });
-
         closeWhitepaperBtn.addEventListener('click', () => {
             whitepaperModal.classList.remove('fade-in');
             whitepaperModal.classList.add('fade-out');
             setTimeout(() => whitepaperModal.classList.add('hidden'), 300);
         });
-
-        // Chat View
         startChatBtn.addEventListener('click', () => {
             chatView.classList.remove('hidden', 'fade-out');
             chatView.classList.add('fade-in');
         });
-
         closeChatBtn.addEventListener('click', () => {
             chatView.classList.remove('fade-in');
             chatView.classList.add('fade-out');
             setTimeout(() => chatView.classList.add('hidden'), 300); 
         });
 
-        // --- Meglévő Funkciók ---
+        // --- Chat Funkciók ---
 
         // Load and Listen for Chat History
         function loadChatHistory() {
-            if (unsubscribeChat) {
-                unsubscribeChat(); 
-            }
+            if (unsubscribeChat) unsubscribeChat(); 
             const q = query(chatCollectionRef);
-            
             unsubscribeChat = onSnapshot(q, (snapshot) => {
                 let messages = [];
-                snapshot.docs.forEach(doc => {
-                    messages.push({ id: doc.id, ...doc.data() });
-                });
-
-                messages.sort((a, b) => {
-                    const tsA = a.timestamp?.toMillis() || 0;
-                    const tsB = b.timestamp?.toMillis() || 0;
-                    return tsA - tsB;
-                });
-
+                snapshot.docs.forEach(doc => messages.push({ id: doc.id, ...doc.data() }));
+                messages.sort((a, b) => (a.timestamp?.toMillis() || 0) - (b.timestamp?.toMillis() || 0));
                 renderMessages(messages);
-            }, (error) => {
-                console.error("Error fetching chats:", error);
-            });
+            }, (error) => console.error("Error fetching chats:", error));
         }
 
         // Render Messages to UI
@@ -587,15 +617,94 @@
             const welcomeMessageContainer = chatMessages.children[0];
             chatMessages.innerHTML = '';
             chatMessages.appendChild(welcomeMessageContainer);
-            
-            messages.forEach(msg => {
-                addMessageToUI(msg.role, msg.text);
-            });
+            messages.forEach(msg => addMessageToUI(msg.role, msg.text, msg.data));
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
+        
+        // Számformázó segédfüggvény
+        function formatNumber(num) {
+            if (num === null || num === undefined) return 'N/A';
+            num = parseFloat(num); // String-ből szám
+            if (isNaN(num)) return 'N/A';
+            
+            if (num < 1000) return `$${num.toFixed(2)}`;
+            if (num < 1000000) return `$${(num / 1000).toFixed(1)}K`;
+            if (num < 1000000000) return `$${(num / 1000000).toFixed(2)}M`;
+            return `$${(num / 1000000000).toFixed(2)}B`;
+        }
+        
+        // Buy/Sell arány formázása
+        function formatBuySell(buySellData) {
+             // JAVÍTÁS: Mielőtt bármit csinálunk, ellenőrizzük, hogy léteznek-e az adatok
+            if (!buySellData || typeof buySellData !== 'object') return 'N/A';
+            
+            // Dexscreener objektumként adja (txns.h24)
+            const buys = buySellData.h24?.buys;
+            const sells = buySellData.h24?.sells;
+            
+            if (buys !== undefined && sells !== undefined) {
+                 return `${buys} buys / ${sells} sells (24h)`;
+            }
 
-        // Add a single message to UI
-        function addMessageToUI(role, text) {
+            // Fallback, ha a formátum ismeretlen vagy hiányzik a h24
+            console.warn("Unknown format or missing h24 data for buy/sell:", buySellData);
+            return 'N/A';
+        }
+
+
+        // renderAnalysisCard funkció (FRISSÍTVE: DexScreener adatokhoz)
+        function renderAnalysisCard(data) {
+            const card = document.createElement('div');
+            card.className = 'analysis-card';
+            
+            let content = `<h3>Analysis: ${data.coinName || 'Unknown Coin'}</h3>`;
+            
+            const renderData = (label, value, unit = '', isCurrency = false) => {
+                let displayValue = 'Data not found';
+                let valueClass = 'data-not-found';
+                
+                // JAVÍTÁS: Szigorúbb ellenőrzés a 'Data not found'-ra és null/undefined-re
+                if (value !== null && value !== undefined && value.toString().trim().toLowerCase() !== 'data not found') {
+                    if (isCurrency) {
+                        displayValue = formatNumber(value); // Itt már a formatNumber kezeli a NaN-t
+                        valueClass = (displayValue === 'N/A') ? 'data-not-found' : '';
+                    } else if (label === 'Buy/Sell Ratio') { // Speciális kezelés a Buy/Sell arányhoz
+                        displayValue = formatBuySell(value); // A formatBuySell kezeli a különböző formátumokat
+                         valueClass = (displayValue === 'N/A') ? 'data-not-found' : '';
+                    }
+                     else {
+                        displayValue = `${value}${unit}`;
+                        valueClass = '';
+                    }
+                }
+                return `<h4>${label}</h4><p class="${valueClass}">${displayValue}</p>`;
+            };
+
+            if (data.market) {
+                // Valós idejű adatok (DexScreener)
+                content += renderData('Market Cap', data.market.marketCap, '', true);
+                content += renderData('Volume (24h)', data.market.volume, '', true);
+                 // JAVÍTÁS: A buySellRatio most már a formatBuySell-t használja
+                content += renderData('Buy/Sell Ratio', data.market.buySellRatio);
+                // AI-generált adat
+                content += renderData('Bundled Supply Info', data.market.details);
+            }
+            if (data.liquidity) content += renderData('Liquidity Status', data.liquidity.status, ` (${data.liquidity.details || ''})`);
+            if (data.holders) {
+                content += renderData('Top 10 Holders', data.holders.top10Percent, '%');
+                content += renderData('Holder Details', data.holders.details);
+            }
+            if (data.prediction) content += renderData('Sentiment / Outlook', data.prediction.sentiment, `: ${data.prediction.details || ''}`);
+            if (data.summary) content += renderData('Summary', data.summary);
+
+            content += `<p class="disclaimer">*Real-time data (MC/Vol/Ratio) via DexScreener.com. Qualitative data by AI. Always DYOR.</p>`;
+            card.innerHTML = content;
+            return card;
+        }
+
+
+        // Add a single message to UI (változatlan)
+        function addMessageToUI(role, text, data = null) {
             const isUser = role === 'user';
             const messageWrapper = document.createElement('div');
             messageWrapper.className = `flex ${isUser ? 'justify-end' : 'justify-start'} items-start`;
@@ -609,43 +718,44 @@
             }
 
             const messageBubble = document.createElement('div');
-            messageBubble.className = `${isUser ? 'bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/50 rounded-xl rounded-br-none' : 'bg-gray-800/90 border border-pink-500/50 rounded-xl rounded-bl-none'} backdrop-blur-sm shadow-md p-3 max-w-xs md:max-w-md break-words`;
+            if (isUser) {
+                messageBubble.className = 'bg-gradient-to-br from-indigo-600 to-purple-600 border border-indigo-400/50 rounded-xl rounded-br-none backdrop-blur-sm shadow-md p-3 max-w-xs md:max-w-md break-words';
+            } else {
+                messageBubble.className = 'bg-gray-800/90 border border-pink-500/50 backdrop-blur-sm shadow-md rounded-xl rounded-bl-none p-3 max-w-xs md:max-w-md break-words';
+            }
             
-            const textElement = document.createElement('p');
-            
-            const ethRegex = /(0x[a-fA-F0-9]{40})/g;
-            const solRegex = /([1-9A-HJ-NP-Za-km-z]{32,44})/g; 
-            
-            let linkifiedText = text.replace(ethRegex, 
-                '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Etherscan">$1</a>'
-            );
-            
-            if (!linkifiedText.includes('<a')) {
-                linkifiedText = linkifiedText.replace(solRegex, (match) => {
-                    if (match.length > 30 && match.length < 45 && !match.includes('http')) {
-                         return `<a href="https://solscan.io/address/${match}" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Solscan">${match}</a>`;
-                    }
-                    return match;
-                });
+            if (data) {
+                const analysisCard = renderAnalysisCard(data);
+                messageBubble.appendChild(analysisCard);
+            } else {
+                const textElement = document.createElement('p');
+                const ethRegex = /(0x[a-fA-F0-9]{40})/g;
+                const solRegex = /([1-9A-HJ-NP-Za-km-z]{32,44})/g; 
+                let linkifiedText = text.replace(ethRegex, '<a href="https://etherscan.io/address/$1" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Etherscan">$1</a>');
+                if (!linkifiedText.includes('<a')) {
+                    linkifiedText = linkifiedText.replace(solRegex, (match) => {
+                        if (match.length > 30 && match.length < 45 && !match.includes('http')) {
+                             return `<a href="https://solscan.io/address/${match}" target="_blank" rel="noopener noreferrer" class="text-pink-400 hover:underline" title="View address on Solscan">${match}</a>`;
+                        }
+                        return match;
+                    });
+                }
+                textElement.innerHTML = linkifiedText; 
+                messageBubble.appendChild(textElement);
             }
 
-            textElement.innerHTML = linkifiedText; 
-
-            messageBubble.appendChild(textElement);
-
-            if (!isUser) {
+            if (!isUser && !data) {
                 const playButton = document.createElement('button');
                 playButton.className = 'play-tts-btn mt-2 p-1 bg-pink-500/50 hover:bg-pink-400/50 rounded-full text-white transition-all';
                 playButton.dataset.text = text;
                 playButton.innerHTML = `<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>`;
                 messageBubble.appendChild(playButton);
             }
-            
             messageWrapper.appendChild(messageBubble);
             chatMessages.appendChild(messageWrapper);
         }
 
-        // Set Loading State
+        // Set Loading State (változatlan)
         function setLoading(isLoading) {
             if (isLoading) {
                 loadingSpinner.classList.remove('hidden');
@@ -658,8 +768,70 @@
                 chatInput.focus();
             }
         }
+        
+        // FRISSÍTETT FUNKCIÓ: Adatok lekérése a DexScreener-től
+        async function fetchTokenDataFromDexScreener(contractAddress) {
+            const placeholderCA = "So1KLara...a1b2c3d4e5";
+            if (!contractAddress || contractAddress === placeholderCA) {
+                console.log("DexScreener fetch skipped: Using placeholder CA.");
+                return null;
+            }
+            
+            // A DexScreener nyilvános API végpontja
+            const apiUrl = `https://api.dexscreener.com/latest/dex/search?q=${contractAddress}`;
+            
+            try {
+                // JAVÍTÁS: Hozzáadva egy kis késleltetés, hogy ne terheljük túl az API-t
+                await new Promise(resolve => setTimeout(resolve, 500)); // 0.5 másodperc várakozás
+                
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    console.error(`DexScreener API error: ${response.status} ${response.statusText}`);
+                     // JAVÍTÁS: Részletesebb hibaüzenet naplózása, ha van
+                    try {
+                        const errorBody = await response.json();
+                        console.error("DexScreener error body:", errorBody);
+                    } catch (e) {
+                         console.error("Could not parse DexScreener error body.");
+                    }
+                    return null;
+                }
+                const data = await response.json();
+                
+                if (data.pairs && data.pairs.length > 0) {
+                    // Keressük meg a legnagyobb volume-mal rendelkező párt
+                    const topPair = data.pairs.reduce((prev, current) => {
+                         // JAVÍTÁS: Ellenőrizzük, hogy a volume objektum létezik-e, mielőtt hozzáférünk
+                         const prevVol = prev.volume && prev.volume.h24 ? parseFloat(prev.volume.h24) : 0;
+                         const currentVol = current.volume && current.volume.h24 ? parseFloat(current.volume.h24) : 0;
+                        return (prevVol > currentVol) ? prev : current;
+                    });
 
-        // Send Message
+                    // JAVÍTÁS: Ellenőrizzük az adatok létezését, mielőtt visszaadjuk
+                    const marketCap = topPair.fdv; // Fully Diluted Valuation
+                    const volume = topPair.volume?.h24;
+                     // JAVÍTÁS: A buy/sell adat a txns objektumban van
+                    const buySellData = topPair.txns; 
+                    const name = topPair.baseToken?.symbol || contractAddress;
+
+                    return {
+                        marketCap: marketCap, 
+                        volume: volume,
+                         // JAVÍTÁS: A buy/sell arány formázását a renderelőre bízzuk
+                        buySellRatio: buySellData, // Visszaadjuk a teljes txns objektumot
+                        name: name,
+                    };
+                } else {
+                    console.log("DexScreener: No pairs found for address:", contractAddress);
+                    return null; // Nincs találat
+                }
+            } catch (error) {
+                console.error("Error fetching DexScreener data:", error);
+                return null;
+            }
+        }
+
+        // Send Message (MÓDOSÍTVA: Hibrid adatgyűjtés DexScreener-rel)
         async function sendMessage() {
             const text = chatInput.value.trim();
             if (!text || !userId) return;
@@ -668,22 +840,69 @@
             chatInput.value = '';
 
             try {
-                const userMessage = {
-                    role: 'user',
-                    text: text,
-                    timestamp: Timestamp.now()
-                };
+                const userMessage = { role: 'user', text: text, timestamp: Timestamp.now() };
                 await addDoc(chatCollectionRef, userMessage);
-                await getAIResponse();
+                
+                const aiTextResponse = await getAIResponse(); 
+                const aiMessagePayload = { role: 'model', timestamp: Timestamp.now() };
+                
+                let jsonToParse = aiTextResponse
+                    .replace(/^```json\s*/, '')
+                    .replace(/\s*```$/, '');
+
+                try {
+                    // JAVÍTÁS: try...catch blokk a JSON.parse köré
+                    const aiData = JSON.parse(jsonToParse);
+                    
+                    if (aiData.analysisType === 'coinAnalysis' && aiData.data.contractAddress) {
+                        
+                        // --- ITT TÖRTÉNIK A VARÁZSLAT ---
+                        // 1. Lekérjük a valós idejű adatokat a DexScreener-től
+                        const dexScreenerData = await fetchTokenDataFromDexScreener(aiData.data.contractAddress);
+                        
+                        // 2. Összefésüljük az adatokat
+                        if (dexScreenerData) {
+                            aiData.data.market.marketCap = dexScreenerData.marketCap;
+                            aiData.data.market.volume = dexScreenerData.volume;
+                            aiData.data.market.buySellRatio = dexScreenerData.buySellRatio; // Most az objektumot adjuk át
+                            if (!aiData.data.coinName || aiData.data.coinName === '...') {
+                                aiData.data.coinName = dexScreenerData.name;
+                            }
+                        } else {
+                             // JAVÍTÁS: Ha a DexScreener nem ad vissza adatot, jelezzük
+                            aiData.data.market.marketCap = 'Data not found';
+                            aiData.data.market.volume = 'Data not found';
+                            aiData.data.market.buySellRatio = 'Data not found';
+                        }
+                        // ------------------------------------
+
+                        aiMessagePayload.data = aiData.data; 
+                        aiMessagePayload.text = "Here is the analysis you requested.";
+                    
+                    } else {
+                        // Nem elemzés JSON volt, vagy hibás JSON
+                        aiMessagePayload.text = aiTextResponse; 
+                    }
+                } catch (e) {
+                     // JAVÍTÁS: Ha a JSON.parse() hibát dob (mert pl. sima szöveg jött), akkor a nyers választ adjuk át
+                     console.warn("AI response was not valid JSON for analysis, treating as plain text:", e, "AI response was:", aiTextResponse);
+                     aiMessagePayload.text = aiTextResponse; 
+                }
+                
+                if (aiMessagePayload.text || aiMessagePayload.data) {
+                    await addDoc(chatCollectionRef, aiMessagePayload);
+                }
             } catch (error) {
                 console.error("Error sending message:", error);
-                addMessageToUI('model', 'Oops, something went wrong. Please try again later.');
+                await addDoc(chatCollectionRef, {
+                    role: 'model', text: 'Oops, something went wrong. Please try again later.', timestamp: Timestamp.now()
+                });
             } finally {
                 setLoading(false);
             }
         }
 
-        // Get AI Response from Gemini
+        // Get AI Response from Gemini (MÓDOSÍTVA: DexScreener-hez)
         async function getAIResponse() {
             const q = query(chatCollectionRef);
             const snapshot = await getDocs(q);
@@ -694,172 +913,158 @@
 
             const geminiHistory = messages.map(msg => ({
                 role: msg.role === 'user' ? 'user' : 'model',
-                parts: [{ text: msg.text }]
+                parts: [{ text: msg.text }] 
             }));
 
-            const systemPrompt = "You are Klara, a helpful, friendly, and empathetic AI assistant for a Solana memecoin called $KLARA. You always respond in English. You can access real-time internet data via Google Search for crypto prices, contract addresses (especially Solana), and live events. You also recognize Ethereum (0x...) and Solana (44-char base58) addresses in chat and will provide links for them. IMPORTANT: Keep your answers concise, informative, and to the point. Be brief unless asked for details. Always be positive about the $KLARA project.";
+            const klaraCA = contractAddressValue || document.getElementById('ca-address-desktop').textContent.trim(); 
+
+            // Rendszerüzenet (FRISSÍTVE, DexScreener-hez és 2025-höz)
+            const systemPrompt = `You are Klara, a helpful, friendly, and empathetic AI assistant for a Solana memecoin called $KLARA. You always respond in English. The current year is 2025. You can access real-time internet data via Google Search.
+            
+            **YOUR PRIMARY RULES:**
+            1.  **Current Year:** Always assume the current year is 2025 for all date-related calculations and context.
+            2.  **Normal Conversation:** For simple chat (greetings, questions about the project, etc.), respond with brief, friendly, plain text.
+            3.  **Factual Data:** For any question asking for factual, real-time data (like 'what is the price of Bitcoin?'), you **MUST** use 'google_search' to find the most current and accurate information.
+            4.  **Self-Awareness:** If the user asks to analyze $KLARA, 'our coin', or 'your coin', use this Contract Address for your search: ${klaraCA}.
+            5.  **Source vs. Target:** Data sources like 'birdeye.so', 'dexscreener.com' are **TOOLS** you use, not tokens to be analyzed. If a user asks to "analyze dexscreener", respond in plain text about the platform.
+
+            **NEW CAPABILITY: HYBRID ANALYSIS (CRITICAL!)**
+            When a user asks for a detailed analysis of a specific **TOKEN NAME** (like '$WIF') or a **CONTRACT ADDRESS**, your job is to provide the **QUALITATIVE DATA** only. The real-time data (MC, Volume, Buy/Sell) will be fetched by the app.
+            
+            **Your steps MUST be:**
+            1.  Use 'google_search' to find the **Contract Address (CA)**. This is the most important step. If you cannot find a CA, respond in plain text: "I'm sorry, I couldn't find a Contract Address for that token."
+            2.  If you find the CA, use 'google_search' again to find the **QUALITATIVE data**:
+                - 'liquidity': (e.g., 'liquidity locked/burned percentage [coin name]')
+                - 'holders': (e.g., 'top 10 wallets percentage [coin name]')
+                - 'sentiment/prediction': (e.g., 'price sentiment [coin name]')
+            3.  You **MUST** respond **ONLY** with a JSON object in the following format. Do not add any text before or after the JSON.
+            4.  **IMPORTANT:** Leave "marketCap", "volume", and "buySellRatio" as **null**. They will be filled in by the application in real-time.
+            
+            **JSON FORMAT:**
+            {
+              "analysisType": "coinAnalysis",
+              "data": {
+                "coinName": "[The coin name you found]",
+                "contractAddress": "[The CA you found]",
+                "market": {
+                  "marketCap": null, 
+                  "volume": null, 
+                  "buySellRatio": null,
+                  "details": "[e.g., 'Listed on Raydium...']"
+                },
+                "liquidity": { "status": "[e.g., 'LP Burned', 'Locked', 'Unknown']", "details": "[e.g., '90% LP burned at launch']" },
+                "holders": { "top10Percent": "[e.g., '15%', or 'Data not found']", "details": "[e.g., 'No wallet holds more than 2%...']" },
+                "prediction": { "sentiment": "[e.g., 'Bullish', 'Neutral']", "details": "[e.g., 'Strong social media activity...']" },
+                "summary": "[Your overall summary...]"
+              }
+            }
+            
+            If you cannot find a specific piece of *qualitative* data, return 'Data not found' for that field, but **you must still return the full JSON object structure.**
+            `;
 
             const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; 
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
             
             const payload = {
                 contents: geminiHistory,
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+                tools: [{ "google_search": {} }]
             };
-
+            
             const aiText = await fetchWithBackoff(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
-            if (aiText) {
-                const aiMessage = {
-                    role: 'model',
-                    text: aiText,
-                    timestamp: Timestamp.now()
-                };
-                await addDoc(chatCollectionRef, aiMessage);
-            }
+            return aiText; 
         }
 
-        // Play TTS
+        // Play TTS (változatlan)
         async function playTTS(text) {
             try {
                 const apiKey = "AIzaSyDTqdv6sjLDqNQxhszCUo792so6j7mYjXw"; 
                 const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-
                 const payload = {
-                    contents: [{
-                        parts: [{ text: `Say with a friendly and clear tone: ${text}` }]
-                    }],
+                    contents: [{ parts: [{ text: `Say with a friendly and clear tone: ${text}` }] }],
                     generationConfig: {
                         responseModalities: ["AUDIO"],
-                        speechConfig: {
-                            speechContext: { languageCode: "en-US" }, 
-                            voiceConfig: {
-                                prebuiltVoiceConfig: { voiceName: "Kore" } 
-                            }
-                        }
+                        speechConfig: { speechContext: { languageCode: "en-US" }, voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
                     },
                     model: "gemini-2.5-flash-preview-tts"
                 };
-
-                const response = await fetch(ttsApiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`TTS API error: ${response.statusText}`);
-                }
-
+                const response = await fetch(ttsApiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                if (!response.ok) throw new Error(`TTS API error: ${response.statusText}`);
                 const result = await response.json();
                 const part = result?.candidates?.[0]?.content?.parts?.[0];
                 const audioData = part?.inlineData?.data;
                 const mimeType = part?.inlineData?.mimeType;
-
                 if (audioData && mimeType && mimeType.startsWith("audio/")) {
                     const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
                     const pcmData = base64ToArrayBuffer(audioData);
                     const pcm16 = new Int16Array(pcmData);
                     const wavBlob = pcmToWav(pcm16, sampleRate);
                     const audioUrl = URL.createObjectURL(wavBlob);
-                    
                     ttsAudioPlayer.src = audioUrl;
                     ttsAudioPlayer.play();
-                } else {
-                    console.error("Invalid TTS response", result);
-                }
-
-            } catch (error) {
-                console.error("Error during TTS playback:", error);
-            }
+                } else { console.error("Invalid TTS response", result); }
+            } catch (error) { console.error("Error during TTS playback:", error); }
         }
 
-        // CA Másolása (Mindkét gombra)
-        function handleCopyClick(addressElement, feedbackElement) {
-            const address = addressElement.textContent;
+        // CA Másolása (MÓDOSÍTVA)
+        function handleCopyClick(feedbackElement) {
+            const address = contractAddressValue || document.getElementById('ca-address-desktop').textContent.trim(); 
             const textArea = document.createElement('textarea');
             textArea.value = address;
             textArea.style.position = 'absolute';
             textArea.style.left = '-9999px';
             document.body.appendChild(textArea);
-            
             textArea.select();
             try {
                 document.execCommand('copy');
                 feedbackElement.classList.remove('hidden');
-                setTimeout(() => {
-                    feedbackElement.classList.add('hidden');
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy text: ', err);
-            }
+                setTimeout(() => { feedbackElement.classList.add('hidden'); }, 2000);
+            } catch (err) { console.error('Failed to copy text: ', err); }
             document.body.removeChild(textArea);
         }
-        
-        copyCaBtnDesktop.addEventListener('click', () => handleCopyClick(caAddressDesktop, copiedFeedbackDesktop));
-        copyCaBtnMobile.addEventListener('click', () => handleCopyClick(caAddressMobile, copiedFeedbackMobile));
+        copyCaBtnDesktop.addEventListener('click', () => handleCopyClick(copiedFeedbackDesktop));
+        copyCaBtnMobile.addEventListener('click', () => handleCopyClick(copiedFeedbackMobile));
 
 
-        // Törlés gombok
-        clearChatBtn.addEventListener('click', () => {
-            confirmationModal.classList.remove('hidden');
-        });
-
-        cancelDeleteBtn.addEventListener('click', () => {
-            confirmationModal.classList.add('hidden');
-        });
-
-        confirmDeleteBtn.addEventListener('click', async () => {
+        // Törlés gombok (változatlan)
+        clearChatBtn.addEventListener('click', () => confirmationModal.classList.remove('hidden'));
+        cancelDeleteBtn.addEventListener('click', () => confirmationModal.classList.add('hidden'));
+        confirmDeleteBtn.addEventListener('click', async () => { 
             if (!chatCollectionRef) return;
-            
             confirmDeleteBtn.disabled = true;
             cancelDeleteBtn.disabled = true;
-
             try {
                 const q = query(chatCollectionRef);
                 const snapshot = await getDocs(q);
                 const deletePromises = [];
-                snapshot.docs.forEach(doc => {
-                    deletePromises.push(deleteDoc(doc.ref));
-                });
+                snapshot.docs.forEach(doc => deletePromises.push(deleteDoc(doc.ref)));
                 await Promise.all(deletePromises);
-            } catch (error) {
-                console.error("Error deleting chat history:", error);
-            } finally {
+            } catch (error) { console.error("Error deleting chat history:", error); } 
+            finally {
                 confirmationModal.classList.add('hidden');
                 confirmDeleteBtn.disabled = false;
                 cancelDeleteBtn.disabled = false;
             }
         });
 
-        // Send Message
+        // Send Message (változatlan)
         sendBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
-        });
+        chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
 
-        // Event delegation for Play buttons
+        // Event delegation for Play buttons (változatlan)
         chatMessages.addEventListener('click', (e) => {
             const playButton = e.target.closest('.play-tts-btn');
-            if (playButton) {
-                const textToPlay = playButton.dataset.text;
-                playTTS(textToPlay);
-            }
+            if (playButton) { const textToPlay = playButton.dataset.text; if (textToPlay) { playTTS(textToPlay); } }
         });
 
-        // --- HELPER FUNCTIONS ---
-        async function fetchWithBackoff(url, options, retries = 5, delay = 1000) {
-            for (let i = 0; i < retries; i++) {
+        // --- HELPER FUNCTIONS --- (változatlanok)
+        async function fetchWithBackoff(url, options, retries = 5, delay = 1000) { 
+         for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(url, options);
                     if (!response.ok) {
@@ -868,30 +1073,32 @@
                         }
                         const errorResult = await response.json();
                         console.error("API client error:", errorResult);
-                        addMessageToUI('model', `Error with response: ${errorResult.error.message}`);
-                        return null;
+                        return `Error with response: ${errorResult.error.message}`;
                     }
-                    
                     const result = await response.json();
-                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
-                    
+                    if (!result.candidates || !result.candidates[0].content || !result.candidates[0].content.parts || !result.candidates[0].content.parts[0]) {
+                        console.error("Invalid response structure from Gemini:", result);
+                        throw new Error("Invalid response structure");
+                    }
+                    const text = result.candidates[0].content.parts[0].text;
                     if (!text) {
                         console.error("Empty or invalid response from Gemini:", result);
+                        if(result.candidates[0].finishReason === "OTHER" || result.candidates[0].finishReason === "SAFETY") {
+                            return "I tried to find the data, but I couldn't compile a valid analysis. This might be due to safety filters or lack of data. Please try asking in a different way.";
+                        }
                         throw new Error("Empty response");
                     }
-                    return text;
-
+                    return text; // Ez most már lehet JSON string
                 } catch (error) {
                     if (i === retries - 1) {
                         console.error("API call failed after all retries:", error);
-                        addMessageToUI('model', 'Oops, I can\'t respond. I might be overloaded. Please try again in a bit.');
-                        return null;
+                        return 'Oops, I can\'t respond. I might be overloaded. Please try again in a bit.';
                     }
                     await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
                 }
             }
         }
-        function base64ToArrayBuffer(base64) {
+        function base64ToArrayBuffer(base64) { 
             const binaryString = window.atob(base64);
             const len = binaryString.length;
             const bytes = new Uint8Array(len);
@@ -900,7 +1107,7 @@
             }
             return bytes.buffer;
         }
-        function pcmToWav(pcmData, sampleRate) {
+        function pcmToWav(pcmData, sampleRate) { 
             const header = new ArrayBuffer(44);
             const view = new DataView(header);
             const pcmLength = pcmData.length;
@@ -928,11 +1135,15 @@
             wavData.set(pcmData, header.byteLength / 2);
             return new Blob([wavData.buffer], { type: 'audio/wav' });
         }
-        function writeString(view, offset, string) {
+        function writeString(view, offset, string) { 
             for (let i = 0; i < string.length; i++) {
                 view.setUint8(offset + i, string.charCodeAt(i));
             }
         }
+        
+        // Indításkor frissítjük a CA-t
+        document.addEventListener('DOMContentLoaded', updateContractAddressDisplay);
+        
     </script>
 </body>
 </html>
